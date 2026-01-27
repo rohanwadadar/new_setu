@@ -38,8 +38,8 @@ async function generatePreviews() {
         let html = template;
 
         // Configuration
-        const BASE_URL = "https://rohanwadadar.github.io/Share_setu";
-        const BASE_PATH = "/Share_setu"; // For images
+        const BASE_URL = "https://rohanwadadar.github.io/new_setu";
+        const BASE_PATH = "/new_setu"; // For images
 
         // Ensure image has full path if it's relative
         const fullImage = image.startsWith('http') ? image : `${BASE_URL}${image}`;

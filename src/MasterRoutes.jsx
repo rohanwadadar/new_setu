@@ -74,7 +74,7 @@ function PageManager() {
  */
 export default function MasterRoutes() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/new_setu">
             {/* PageManager runs invisibly to handle browser titles */}
             <PageManager />
 

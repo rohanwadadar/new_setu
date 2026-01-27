@@ -87,7 +87,7 @@ async function generatePreviews() {
             route.path,
             route.title,
             route.description || "SETU School of AI",
-            route.previewImage || "/previews/default.png"
+            "/previews/default.png" // FORCED AS REQUESTED
         );
     });
 

@@ -10,6 +10,11 @@ const __dirname = path.dirname(__filename);
 const DIST_DIR = path.resolve(__dirname, '../dist');
 const TEMPLATE_PATH = path.join(DIST_DIR, 'index.html');
 
+// Configuration - Absolute URLs for Google Chat compatibility
+const BASE_URL = "https://rohanwadadar.github.io/new_setu";
+const BASE_PATH = "/new_setu"; // For images
+
+
 async function generatePreviews() {
     console.log("🚀 Starting Pre-render Generation...");
 
@@ -37,10 +42,6 @@ async function generatePreviews() {
         // 2. Inject Meta Tags
         let html = template;
 
-        // Configuration
-        const BASE_URL = "https://rohanwadadar.github.io/new_setu";
-        const BASE_PATH = "/new_setu"; // For images
-
         // Ensure image has full path if it's relative
         const fullImage = image.startsWith('http') ? image : `${BASE_URL}${image}`;
 
@@ -55,11 +56,26 @@ async function generatePreviews() {
             html = html.replace('</head>', `${descTag}\n</head>`);
         }
 
-        // Add Open Graph Tags (Enhanced for Google Chat compatibility)
+        // Sanitize description for meta tags
+        const safeDesc = description
+            .replace(/"/g, '&quot;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .substring(0, 155);
+
+        // Add Complete Meta Tags (Google Chat + Open Graph + Twitter)
         const ogTags = `
+        <!-- CRITICAL: Google Chat/Messages requires itemprop Schema.org tags -->
+        <meta itemprop="name" content="${title}" />
+        <meta itemprop="description" content="${safeDesc}" />
+        <meta itemprop="image" content="${fullImage}" />
+        <meta itemprop="url" content="${BASE_URL}${routePath}" />
+        
+        <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
         <meta property="og:title" content="${title}" />
-        <meta property="og:description" content="${description}" />
+        <meta property="og:description" content="${safeDesc}" />
         <meta property="og:image" content="${fullImage}" />
+        <meta property="og:image:url" content="${fullImage}" />
         <meta property="og:image:secure_url" content="${fullImage}" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
@@ -68,11 +84,19 @@ async function generatePreviews() {
         <meta property="og:url" content="${BASE_URL}${routePath}" />
         <meta property="og:type" content="website" />
         <meta property="og:site_name" content="SETU School of AI" />
+        <meta property="og:locale" content="en_US" />
+        
+        <!-- Twitter Card -->
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="${title}" />
-        <meta name="twitter:description" content="${description}" />
+        <meta name="twitter:description" content="${safeDesc}" />
         <meta name="twitter:image" content="${fullImage}" />
         <meta name="twitter:image:alt" content="${title}" />
+        
+        <!-- Additional SEO -->
+        <meta name="keywords" content="AI, Machine Learning, Data Science, SETU, Courses, Workshops" />
+        <meta name="author" content="SETU School of AI" />
+        <link rel="canonical" href="${BASE_URL}${routePath}" />
         `;
 
         // Inject before </head>
@@ -135,7 +159,35 @@ async function generatePreviews() {
     fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
     console.log("✅ Generated: .nojekyll");
 
+    // 6. Create _headers file for proper Content-Type (helps Google Chat)
+    const headersContent = `/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  
+/previews/*
+  Cache-Control: public, max-age=31536000, immutable
+  
+/*.html
+  Cache-Control: public, max-age=0, must-revalidate
+`;
+    fs.writeFileSync(path.join(DIST_DIR, '_headers'), headersContent);
+    console.log("✅ Generated: _headers");
+
+    // 7. Create robots.txt for SEO
+    const robotsContent = `User-agent: *
+Allow: /
+
+Sitemap: ${BASE_URL}/sitemap.xml
+`;
+    fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), robotsContent);
+    console.log("✅ Generated: robots.txt");
+
     console.log("🎉 Pre-rendering complete!");
+    console.log("\n📱 Google Chat Preview Tips:");
+    console.log("- Wait 24-48 hours for Google's cache to update");
+    console.log("- Test with: https://cards-dev.twitter.com/validator");
+    console.log("- Clear Google Chat cache if needed");
 }
 
 generatePreviews();

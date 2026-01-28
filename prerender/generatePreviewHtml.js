@@ -55,17 +55,24 @@ async function generatePreviews() {
             html = html.replace('</head>', `${descTag}\n</head>`);
         }
 
-        // Add Open Graph Tags
+        // Add Open Graph Tags (Enhanced for Google Chat compatibility)
         const ogTags = `
         <meta property="og:title" content="${title}" />
         <meta property="og:description" content="${description}" />
         <meta property="og:image" content="${fullImage}" />
+        <meta property="og:image:secure_url" content="${fullImage}" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:image:alt" content="${title}" />
         <meta property="og:url" content="${BASE_URL}${routePath}" />
         <meta property="og:type" content="website" />
+        <meta property="og:site_name" content="SETU School of AI" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content="${title}" />
         <meta name="twitter:description" content="${description}" />
         <meta name="twitter:image" content="${fullImage}" />
+        <meta name="twitter:image:alt" content="${title}" />
         `;
 
         // Inject before </head>

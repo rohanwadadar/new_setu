@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rohanwadadar.github.io/new_setu/sitemap.xml

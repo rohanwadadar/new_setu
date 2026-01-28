@@ -1,8 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { routesData } from '../src/routesData.js';
-import { selfPacedCourses, workshopsData } from '../src/data/courses.js';
+import { routesData, selfPacedCourses, workshopsData } from '../src/data/appData.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);

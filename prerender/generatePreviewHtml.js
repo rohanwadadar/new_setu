@@ -129,7 +129,7 @@ async function generatePreviews() {
             const path = `/course/${course.id}`;
             const title = `SETU | ${course.title}`;
             const desc = course.description || courseRoute.description || "Detailed course curriculum and outcomes.";
-            const image = "/previews/default.png"; // FORCED AS REQUESTED
+            const image = "https://rohanwadadar.github.io/new_setu/previews/default.png"; // FORCED AS REQUESTED
 
             writeHtml(path, title, desc, image);
         });
@@ -142,7 +142,7 @@ async function generatePreviews() {
             const path = `/workshop/${workshop.id}`;
             const title = `SETU | Workshop: ${workshop.title}`;
             const desc = workshop.description || `Join our ${workshop.category} Live Workshop on ${workshop.title}. Status: ${workshop.status}.`;
-            const image = "/previews/default.png"; // FORCED AS REQUESTED
+            const image = "https://rohanwadadar.github.io/new_setu/previews/default.png";
 
             writeHtml(path, title, desc, image);
         });

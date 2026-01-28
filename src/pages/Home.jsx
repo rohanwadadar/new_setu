@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
-import { selfPacedCourses, workshopsData } from "../data/courses";
+import { selfPacedCourses, workshopsData } from "../data/appData";
 import {
   Terminal, Compass, BookOpen, ArrowRight,
   Lock, Radio, ChevronRight, Play, Users,

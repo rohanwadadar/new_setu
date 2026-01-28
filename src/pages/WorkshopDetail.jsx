@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { workshopsData } from "../data/courses";
+import { workshopsData } from "../data/appData";
 import { ArrowLeft, Calendar, ShieldCheck, Users } from "lucide-react";
 
 export default function WorkshopDetail() {

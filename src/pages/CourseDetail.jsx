@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
-import { selfPacedCourses } from "../data/courses";
+import { selfPacedCourses } from "../data/appData";
 import { ArrowLeft, BookOpen, PlayCircle, FileText, CheckCircle2, ShieldCheck } from "lucide-react";
 
 export default function CourseDetail() {

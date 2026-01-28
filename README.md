@@ -1,244 +1,379 @@
-# Profile Setu - Frontend
+# 🎓 SETU - School of AI
 
-A modern, responsive React application built with Vite, featuring a beautiful golden-themed UI, JWT authentication, and role-based access control.
+> **Your gateway to Data Science and AI**
 
-## 🚀 Features
+A modern, SEO-optimized React application for SETU School of AI, featuring self-paced courses and live workshops.
 
-- **Modern React**: Built with React 18+ and Vite for fast development
-- **Beautiful UI**: Golden-themed design with Tailwind CSS 4
-- **Authentication**: JWT-based login/register with protected routes
-- **Role-Based Access**: Different views for admin and regular users
-- **Admin Dashboard**: Comprehensive user management interface
-- **Responsive Design**: Mobile-first approach with smooth animations
-- **Axios Integration**: Centralized API calls with interceptors
+---
 
-## 📋 Prerequisites
+## 🚀 Quick Start
 
-- Node.js 16.x or higher
-- npm or yarn package manager
-- Backend API running on `http://localhost:5000`
-
-## 🛠️ Installation
-
-### 1. Navigate to frontend directory
 ```bash
-cd frontend
-```
-
-### 2. Install dependencies
-```bash
+# Install dependencies
 npm install
-```
 
-### 3. Configure API endpoint
-The API base URL is configured in `src/api/axios.js`. By default, it points to:
-```javascript
-baseURL: "http://localhost:5000"
-```
-
-Update this if your backend runs on a different port.
-
-## 🏃 Running the Application
-
-### Development Mode
-```bash
+# Start development server
 npm run dev
+
+# Build for production
+npm run build
+
+# Generate SEO preview files
+node prerender/generatePreviewHtml.js
+
+# Deploy to GitHub Pages
+npm run deploy
 ```
 
-The application will start on `http://localhost:5173`
+---
 
-### Build for Production
+## 📁 Project Structure
+
+```
+specificforntend/
+├── src/
+│   ├── config/
+│   │   └── routing.jsx          # 🚀 ALL ROUTING (MasterRoutes + routeConfig)
+│   ├── data/
+│   │   └── appData.js            # 📊 ALL DATA (routes + courses + workshops)
+│   ├── components/
+│   │   ├── Layout.jsx            # Page wrapper (Navbar + Footer)
+│   │   ├── Navbar.jsx
+│   │   └── Footer.jsx
+│   ├── pages/
+│   │   ├── Home.jsx
+│   │   ├── About.jsx
+│   │   ├── Courses.jsx
+│   │   ├── CourseDetail.jsx     # Handles ALL course pages
+│   │   ├── WorkshopDetail.jsx   # Handles ALL workshop pages
+│   │   ├── Roadmap.jsx
+│   │   └── ForEnterprise.jsx
+│   ├── App.jsx                   # Entry point
+│   ├── main.jsx
+│   └── index.css
+├── prerender/
+│   └── generatePreviewHtml.js    # SEO & social media preview generator
+├── public/
+│   └── previews/                 # Social media preview images
+└── dist/                         # Build output (generated)
+```
+
+---
+
+## 🎯 Key Features
+
+### ✅ **Simplified Architecture**
+- **Single data file** (`appData.js`) for all routes, courses, and workshops
+- **Unified routing** (`routing.jsx`) combining all routing logic
+- **Beginner-friendly** with extensive inline comments
+
+### ✅ **SEO Optimized**
+- Pre-rendered HTML for all pages
+- Open Graph tags for social media
+- Google Chat/Messages compatible with `itemprop` Schema.org tags
+- Dynamic meta titles and descriptions
+- Sitemap and robots.txt generation
+
+### ✅ **Modern Tech Stack**
+- React 19 with React Router
+- Vite for fast builds
+- Tailwind CSS for styling
+- Framer Motion for animations
+
+---
+
+## 📝 Common Tasks
+
+### **Add a New Course**
+
+Just add to `src/data/appData.js`:
+
+```javascript
+export const selfPacedCourses = [
+    // ... existing courses
+    {
+        id: "my-course",
+        title: "My Amazing Course",
+        description: "Learn amazing things"
+    }
+];
+```
+
+**Done!** Course is now available at `/course/my-course`
+
+### **Add a New Workshop**
+
+Add to `src/data/appData.js`:
+
+```javascript
+export const workshopsData = [
+    // ... existing workshops
+    {
+        id: "my-workshop",
+        title: "My Workshop",
+        category: "Category",
+        status: "UPCOMING",
+        description: "Workshop description"
+    }
+];
+```
+
+**Done!** Workshop is now available at `/workshop/my-workshop`
+
+### **Add a New Static Page**
+
+1. Create component in `src/pages/MyPage.jsx`:
+```javascript
+export default function MyPage() {
+    return (
+        <div>
+            <h1>My New Page</h1>
+            <p>Content here</p>
+        </div>
+    );
+}
+```
+
+2. Import in `src/config/routing.jsx`:
+```javascript
+import MyPage from "../pages/MyPage";
+```
+
+3. Add to componentMap:
+```javascript
+const componentMap = {
+    // ... existing mappings
+    "my-page": <MyPage />
+};
+```
+
+4. Add route data in `src/data/appData.js`:
+```javascript
+{
+    id: "my-page",
+    path: "/my-page",
+    label: "My Page",
+    showInNav: true,
+    title: "SETU | My Page",
+    description: "Description for SEO",
+    previewImage: "/previews/default.png",
+    protected: false
+}
+```
+
+---
+
+## 🔧 Configuration
+
+### **Base URL**
+Update in `src/config/routing.jsx`:
+```javascript
+<BrowserRouter basename="/new_setu">
+```
+
+### **SEO Settings**
+Update in `prerender/generatePreviewHtml.js`:
+```javascript
+const BASE_URL = "https://rohanwadadar.github.io/new_setu";
+```
+
+### **Social Media Previews**
+- Images located in: `public/previews/`
+- Recommended size: 1200x630px
+- Format: PNG or JPG
+
+---
+
+## 🌐 Deployment
+
+### **GitHub Pages**
+
+1. Build the project:
 ```bash
 npm run build
 ```
 
-### Preview Production Build
+2. Generate preview files:
 ```bash
-npm run preview
+node prerender/generatePreviewHtml.js
 ```
 
-## 🎨 Design System
-
-### Color Palette
-- **Primary**: Golden yellow (#FBBF24 - #F59E0B)
-- **Background**: Dark slate (#020617, #0F172A)
-- **Accents**: Indigo and purple gradients
-- **Text**: White and slate variations
-
-### Key Design Features
-- Glassmorphism effects
-- Smooth gradient transitions
-- Backdrop blur overlays
-- Micro-animations on hover
-- Premium, modern aesthetic
-
-## 📱 Pages & Routes
-
-| Route | Component | Description | Auth Required |
-|-------|-----------|-------------|---------------|
-| `/` | Home | Landing page | No |
-| `/about` | About | About us page | No |
-| `/login` | Login | User login | No |
-| `/register` | Register | User registration | No |
-| `/profile` | Profile | User profile | Yes |
-| `/admin` | Admin | Admin dashboard | Yes (Admin) |
-
-## 🔐 Authentication Flow
-
-1. **Login/Register**: User enters credentials
-2. **Token Storage**: Access & refresh tokens stored in localStorage
-3. **Auto-Refresh**: Axios interceptor refreshes expired tokens
-4. **Protected Routes**: `ProtectedRoute` component guards authenticated pages
-5. **Role Check**: Admin routes verify user role
-
-## 🎯 Key Components
-
-### AuthContext
-Manages authentication state globally:
-- `user`: Current user object
-- `login()`: Authenticate user
-- `logout()`: Clear session
-- `isAuthenticated`: Boolean state
-
-### ProtectedRoute
-Wrapper component that:
-- Checks authentication status
-- Verifies user role for admin routes
-- Redirects unauthorized users
-
-### Admin Dashboard
-Features:
-- User list with summary info
-- "View Details" modal for complete user profiles
-- Beautiful modal with organized sections
-- Contact and professional information display
-
-## 📦 Dependencies
-
-### Core
-- **React**: UI library
-- **React Router DOM**: Client-side routing
-- **Axios**: HTTP client
-
-### Styling
-- **Tailwind CSS 4**: Utility-first CSS framework
-- **PostCSS**: CSS processing
-- **Autoprefixer**: CSS vendor prefixing
-
-### UI Enhancements
-- **Framer Motion**: Animation library
-- **Lucide React**: Icon library
-
-### Build Tool
-- **Vite (Rolldown)**: Next-generation frontend tooling
-
-## 🗂️ Project Structure
-
-```
-frontend/
-├── src/
-│   ├── api/
-│   │   └── axios.js         # Axios configuration
-│   ├── auth/
-│   │   └── ProtectedRoute.jsx  # Route protection
-│   ├── components/
-│   │   ├── Navbar.jsx       # Navigation bar
-│   │   ├── Footer.jsx       # Footer component
-│   │   └── Hero.jsx         # Hero section
-│   ├── context/
-│   │   └── AuthContext.jsx  # Auth state management
-│   ├── pages/
-│   │   ├── Home.jsx         # Landing page
-│   │   ├── About.jsx        # About page
-│   │   ├── Login.jsx        # Login page
-│   │   ├── Register.jsx     # Registration page
-│   │   ├── Profile.jsx      # User profile
-│   │   └── Admin.jsx        # Admin dashboard
-│   ├── App.jsx              # Root component
-│   ├── main.jsx             # Entry point
-│   └── index.css            # Global styles
-├── package.json             # Dependencies
-└── tailwind.config.js       # Tailwind configuration
+3. Deploy:
+```bash
+npm run deploy
 ```
 
-## 🔧 Configuration Files
+### **Custom Domain**
 
-### `vite.config.js`
-Vite configuration for development server and build settings.
+Update `package.json`:
+```json
+{
+    "homepage": "https://yourdomain.com"
+}
+```
 
-### `tailwind.config.js`
-Tailwind CSS customization including:
-- Custom colors
-- Extended spacing
-- Animation utilities
+---
 
-### `postcss.config.js`
-PostCSS plugins configuration for Tailwind processing.
+## 📊 SEO & Social Media
 
-## 🎭 Admin Features
+### **Google Chat/Messages Support**
 
-### User Management
-- View all registered users
-- See user roles and organizations
-- Click eye icon to view detailed profiles
+The site includes special `itemprop` Schema.org tags for Google Chat:
 
-### User Detail Modal
-Displays:
-- **Basic Info**: ID, Organization
-- **Contact**: Email, Phone, LinkedIn
-- **Professional**: Designation, Experience years
+```html
+<meta itemprop="name" content="Page Title" />
+<meta itemprop="description" content="Description" />
+<meta itemprop="image" content="https://..." />
+<meta itemprop="url" content="https://..." />
+```
+
+### **Open Graph Tags**
+
+Full Open Graph support for Facebook, LinkedIn, WhatsApp:
+- `og:title`, `og:description`, `og:image`
+- Image dimensions (`og:image:width`, `og:image:height`)
+- Secure URLs (`og:image:secure_url`)
+
+### **Twitter Cards**
+
+Twitter card support with `summary_large_image`:
+- `twitter:card`, `twitter:title`, `twitter:description`
+- `twitter:image` with alt text
+
+### **Testing Your Previews**
+
+- **OpenGraph.io**: https://www.opengraph.io/
+- **Google Rich Results**: https://search.google.com/test/rich-results
+- **Twitter Validator**: https://cards-dev.twitter.com/validator
+- **LinkedIn Inspector**: https://www.linkedin.com/post-inspector/
+
+---
+
+## 🎨 Customization
+
+### **Colors**
+
+Update in `src/index.css` or Tailwind config:
+```css
+/* Primary color */
+--color-primary: #ffcc33;
+
+/* Background */
+--color-bg: #020617;
+```
+
+### **Layout**
+
+Edit `src/components/Layout.jsx` to change:
+- Background effects
+- Navbar position
+- Footer content
+- Page wrapper styles
+
+### **Navigation**
+
+Update `showInNav` in route data (`src/data/appData.js`):
+```javascript
+{
+    showInNav: true,  // Shows in navigation
+    label: "Menu Text"
+}
+```
+
+---
 
 ## 🐛 Troubleshooting
 
-**Vite server won't start:**
-- Delete `node_modules` and reinstall: `npm install`
-- Clear Vite cache: `npm run dev -- --force`
-
-**API calls failing:**
-- Verify backend is running on port 5000
-- Check CORS configuration in backend
-- Inspect browser console for errors
-
-**Tailwind styles not applying:**
-- Restart dev server
-- Check `tailwind.config.js` content paths
-- Verify `@tailwindcss/postcss` is installed
-
-**Authentication issues:**
-- Clear localStorage: `localStorage.clear()`
-- Check token expiration
-- Verify API endpoints match backend
-
-## 🚀 Deployment
-
-### Build the application
+### **Build Fails**
 ```bash
+# Clear cache and reinstall
+rm -rf node_modules dist
+npm install
 npm run build
 ```
 
-This creates a `dist` folder with optimized production files.
+### **Pages Not Loading**
+- Check route is in `src/data/appData.js`
+- Verify component is imported in `src/config/routing.jsx`
+- Check componentMap has the route ID
 
-### Deploy to hosting
-Upload the `dist` folder to your hosting provider:
-- **Vercel**: `vercel deploy`
-- **Netlify**: Drag & drop `dist` folder
-- **GitHub Pages**: Use `gh-pages` package
+### **SEO Previews Not Showing**
+- Wait 24-48 hours for cache to clear
+- Use cache-busting URLs: `?v=2`
+- Verify image is accessible
+- Check meta tags in page source
 
-### Environment Variables
-For production, update the API base URL in `src/api/axios.js` to your production backend URL.
+---
 
-## 📝 Best Practices
+## 📚 Documentation
 
-- Keep components small and focused
-- Use context for global state
-- Implement error boundaries
-- Add loading states for async operations
-- Follow React hooks best practices
+### **Detailed Guides**
+- `PROJECT_STRUCTURE.md` - Complete architecture guide
+- `GOOGLE_CHAT_TESTING.md` - Social media preview testing
+- Inline comments in all source files
+
+### **Key Files**
+- `src/data/appData.js` - All data with helper functions
+- `src/config/routing.jsx` - Complete routing system
+- `prerender/generatePreviewHtml.js` - SEO generation
+
+---
+
+## 🔄 Version History
+
+### **v2.0 (Current)** - Restructured
+- Unified data file (`appData.js`)
+- Unified routing (`routing.jsx`)
+- Simplified architecture
+- Enhanced documentation
+
+### **v1.0** - Initial
+- Separate route and data files
+- Multiple routing files
+- Basic structure
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework**: React 19.2.4
+- **Router**: React Router DOM 7.12.0
+- **Build Tool**: Vite 5.0.0
+- **Styling**: Tailwind CSS 4.1.18
+- **Animations**: Framer Motion 12.26.2
+- **HTTP Client**: Axios 1.13.2
+- **Deployment**: GitHub Pages (gh-pages 6.3.0)
+
+---
+
+## 📞 Support
+
+### **For Developers**
+- Read inline comments in source files
+- Check `PROJECT_STRUCTURE.md` for detailed guides
+- Review usage examples in `appData.js`
+
+### **For Beginners**
+- Start with `PROJECT_STRUCTURE.md`
+- Follow the "Common Tasks" section above
+- Check the Quick Reference in `routing.jsx`
+
+---
 
 ## 📄 License
 
-This project is part of the Profile Setu platform.
+This project is private and proprietary to SETU School of AI.
 
-## 👥 Support
+---
 
-For issues or questions, please contact the development team.
+## 🙏 Credits
+
+Built with ❤️ for SETU School of AI
+
+**Live Site**: https://rohanwadadar.github.io/new_setu/
+
+---
+
+**Last Updated**: 2026-01-28  
+**Version**: 2.0  
+**Status**: ✅ Production Ready

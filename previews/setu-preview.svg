@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1200" height="630" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background Gradient -->
+  <defs>
+    <linearGradient id="bgGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a365d;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#2d3748;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#bgGradient)"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="100" cy="100" r="60" fill="#4299e1" opacity="0.1"/>
+  <circle cx="1100" cy="530" r="80" fill="#63b3ed" opacity="0.1"/>
+  
+  <!-- Main Content -->
+  <!-- SETU Logo/Text -->
+  <text x="600" y="220" font-family="Arial, sans-serif" font-size="120" font-weight="bold" 
+        fill="#ffffff" text-anchor="middle" letter-spacing="8">SETU</text>
+  
+  <!-- Subtitle -->
+  <text x="600" y="290" font-family="Arial, sans-serif" font-size="42" 
+        fill="#63b3ed" text-anchor="middle">School of AI</text>
+  
+  <!-- Divider Line -->
+  <line x1="400" y1="330" x2="800" y2="330" stroke="#4299e1" stroke-width="3" opacity="0.5"/>
+  
+  <!-- Tagline -->
+  <text x="600" y="400" font-family="Arial, sans-serif" font-size="36" 
+        fill="#a0aec0" text-anchor="middle">Learn • Build • Deploy</text>
+  
+  <!-- Bottom Text -->
+  <text x="600" y="520" font-family="Arial, sans-serif" font-size="28" 
+        fill="#718096" text-anchor="middle">Your Gateway to Data Science and AI</text>
+  
+  <!-- Small Icon/Badge -->
+  <circle cx="1050" cy="120" r="50" fill="#ed8936" opacity="0.8"/>
+  <text x="1050" y="135" font-family="Arial, sans-serif" font-size="40" font-weight="bold"
+        fill="#ffffff" text-anchor="middle">AI</text>
+</svg>

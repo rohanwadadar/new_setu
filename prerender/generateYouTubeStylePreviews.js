@@ -571,7 +571,8 @@ async function generatePage(template, page) {
 
     // CHANGE: Use Production URL (GitHub Pages) instead of Raw GitHub
     // Files in /public/previews/ at build time move to /previews/ in dist
-    const imageUrl = `${GITHUB_PAGES_URL}/previews/${imageFile}`;
+    // Added ?v=2 to force cache refresh on WhatsApp
+    const imageUrl = `${GITHUB_PAGES_URL}/previews/${imageFile}?v=2`;
 
     // 3. Generate YouTube-style meta tags with SPECIFIC image
     const metaTags = generateYouTubeStyleMetaTags(title, description, imageUrl, pageUrl, type, extraData);
@@ -791,7 +792,7 @@ function createSitemap(pages) {
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${pages.map(page => {
         // EQUALLY CRITICAL: Use Production URL for sitemap images too
-        const imageUrl = `${GITHUB_PAGES_URL}/previews/${page.imageFile}`;
+        const imageUrl = `${GITHUB_PAGES_URL}/previews/${page.imageFile}?v=2`;
         return `    <url>
         <loc>${GITHUB_PAGES_URL}${page.path}</loc>
         <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>

@@ -98,17 +98,17 @@
 
 //     console.log(`
 //     ✅ YOUTUBE-STYLE PREVIEWS READY (100% FREE)
-    
+
 //     🔗 Test your links:
 //     - Homepage: ${GITHUB_PAGES_URL}/
 //     - Sample course: ${GITHUB_PAGES_URL}/course/llm/
 //     - Sample workshop: ${GITHUB_PAGES_URL}/workshop/genai-app/
-    
+
 //     🖼️ Thumbnails (NO 404):
 //     - ${getImageUrl('default.png')}
 //     - ${getImageUrl('courses.png')}
 //     - ${getImageUrl('workshop.png')}
-    
+
 //     📱 Platform Compatibility:
 //     ✅ Google Chat/Android Messages
 //     ✅ WhatsApp
@@ -120,7 +120,7 @@
 //     ✅ Discord
 //     ✅ iMessage
 //     ✅ Google Search
-    
+
 //     📊 Next steps:
 //     1. Deploy to GitHub Pages: npm run deploy
 //     2. Test immediately on WhatsApp/Twitter/LinkedIn
@@ -199,13 +199,13 @@
 //     <meta name="keywords" content="AI, Machine Learning, Data Science, SETU, Courses, Workshops, GenAI, LLM, MLOps">
 //     <meta name="author" content="SETU School of AI">
 //     <meta name="robots" content="index, follow">
-    
+
 //     <!-- CRITICAL: Google Chat/Messages requires itemprop Schema.org tags -->
 //     <meta itemprop="name" content="${title}">
 //     <meta itemprop="description" content="${safeDesc}">
 //     <meta itemprop="image" content="${imageUrl}">
 //     <meta itemprop="url" content="${pageUrl}">
-    
+
 //     <!-- Open Graph (Facebook, LinkedIn, WhatsApp, Telegram, iMessage) -->
 //     <meta property="og:title" content="${title}">
 //     <meta property="og:description" content="${safeDesc}">
@@ -220,7 +220,7 @@
 //     <meta property="og:type" content="website">
 //     <meta property="og:site_name" content="SETU School of AI">
 //     <meta property="og:locale" content="en_US">
-    
+
 //     <!-- Twitter Card (Twitter/X) -->
 //     <meta name="twitter:card" content="summary_large_image">
 //     <meta name="twitter:title" content="${title}">
@@ -229,13 +229,13 @@
 //     <meta name="twitter:image:alt" content="${title}">
 //     <meta name="twitter:site" content="@setuschool">
 //     <meta name="twitter:creator" content="@setuschool">
-    
+
 //     <!-- Canonical URL -->
 //     <link rel="canonical" href="${pageUrl}">
-    
+
 //     <!-- Structured Data (JSON-LD) - Google's preferred format -->
 //     ${jsonLd}
-    
+
 //     ${hiddenContent}
 //     `;
 // }
@@ -438,47 +438,71 @@ async function generateYouTubeStylePreviews() {
 
     const template = fs.readFileSync(templatePath, 'utf-8');
 
-    // 2. Generate ALL pages with SPECIFIC IMAGES from appData
+    // 2. Generate ALL pages with VALIDATED IMAGES (Fallback architecture)
+    const PUBLIC_PREVIEWS_DIR = path.resolve(__dirname, '../public/previews');
+
+    // Helper to validate valid image or return fallback
+    const getValidImage = (filename, type) => {
+        const filePath = path.join(PUBLIC_PREVIEWS_DIR, filename);
+        if (fs.existsSync(filePath)) {
+            return filename;
+        }
+
+        // Fallback logic
+        if (type === 'Course') return 'courses.png';
+        if (type === 'Event') return 'workshop.png'; // Workshop type is 'Event'
+        return 'default.png';
+    };
+
     const pages = [
         // Homepage (special handling)
         {
             path: '/',
             title: 'SETU School of AI - Master AI/ML • 100% Free',
             description: 'Master Artificial Intelligence, Machine Learning, and Data Science with industry experts. Free courses, live workshops, hands-on projects.',
-            imageFile: 'default.png', // Default fallback
+            imageFile: getValidImage('default.png', 'WebSite'),
             type: 'WebSite'
         },
 
         // Static routes - USING route.previewImage from appData
         ...routesData
             .filter(route => !route.path.includes(':'))
-            .map(route => ({
-                path: route.path,
-                title: route.title,
-                description: route.description || 'SETU School of AI',
-                imageFile: getFilenameFromPath(route.previewImage) || 'default.png',
-                type: 'WebPage'
-            })),
+            .map(route => {
+                const intendedImage = getFilenameFromPath(route.previewImage);
+                return {
+                    path: route.path,
+                    title: route.title,
+                    description: route.description || 'SETU School of AI',
+                    imageFile: getValidImage(intendedImage || 'default.png', 'WebPage'),
+                    type: 'WebPage'
+                };
+            }),
 
         // Course pages - USING course.image or course.previewImage from appData
-        ...selfPacedCourses.map(course => ({
-            path: `/course/${course.id}`,
-            title: `SETU Course: ${course.title}`,
-            description: course.description || `Learn ${course.title} with hands-on projects. Free AI/ML course.`,
-            imageFile: getFilenameFromPath(course.image || course.previewImage) || 'courses.png',
-            type: 'Course',
-            extraData: course
-        })),
+        ...selfPacedCourses.map(course => {
+            const intendedImage = getFilenameFromPath(course.image || course.previewImage);
+            return {
+                path: `/course/${course.id}`,
+                title: `SETU Course: ${course.title}`,
+                description: course.description || `Learn ${course.title} with hands-on projects. Free AI/ML course.`,
+                imageFile: getValidImage(intendedImage, 'Course'),
+                type: 'Course',
+                extraData: course
+            };
+        }),
 
         // Workshop pages - USING workshop.image or workshop.previewImage from appData
-        ...workshopsData.map(workshop => ({
-            path: `/workshop/${workshop.id}`,
-            title: `SETU Workshop: ${workshop.title}`,
-            description: workshop.description || `Live ${workshop.category} workshop. Interactive session with experts.`,
-            imageFile: getFilenameFromPath(workshop.image || workshop.previewImage) || 'workshop.png',
-            type: 'Event',
-            extraData: workshop
-        }))
+        ...workshopsData.map(workshop => {
+            const intendedImage = getFilenameFromPath(workshop.image || workshop.previewImage);
+            return {
+                path: `/workshop/${workshop.id}`,
+                title: `SETU Workshop: ${workshop.title}`,
+                description: workshop.description || `Live ${workshop.category} workshop. Interactive session with experts.`,
+                imageFile: getValidImage(intendedImage, 'Event'),
+                type: 'Event',
+                extraData: workshop
+            };
+        })
     ];
 
     // 3. Generate each page
@@ -563,7 +587,7 @@ async function generatePage(template, page) {
 
     // 5. Write file
     fs.writeFileSync(indexPath, html);
-    
+
     // Log which image is being used
     console.log(`✅ ${routePath || '/'} → ${imageFile}`);
 }

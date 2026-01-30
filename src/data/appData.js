@@ -116,42 +116,50 @@ export const selfPacedCourses = [
     {
         id: "llm",
         title: "Large Language Modeling (LLM)",
-        description: "Master LLMs with hands-on projects and advanced techniques."
+        description: "Master LLMs with hands-on projects and advanced techniques.",
+        image: "/previews/course-llm.png"
     },
     {
         id: "genbi",
         title: "Generative Business Intelligence (GenBI)",
-        description: "Learn to build AI-powered business intelligence solutions."
+        description: "Learn to build AI-powered business intelligence solutions.",
+        image: "/previews/course-genbi.png"
     },
     {
         id: "mlops",
         title: "MLOps & LLMOps",
-        description: "Master the operations and deployment of ML and LLM systems."
+        description: "Master the operations and deployment of ML and LLM systems.",
+        image: "/previews/course-mlops.png"
     },
     {
         id: "data-aws",
         title: "Data Engineering with AWS",
-        description: "Build scalable data pipelines using AWS services."
+        description: "Build scalable data pipelines using AWS services.",
+        image: "/previews/course-data-aws.png"
     },
     {
         id: "data-azure",
         title: "Data Engineering with Azure",
-        description: "Master data engineering on Microsoft Azure cloud platform."
+        description: "Master data engineering on Microsoft Azure cloud platform.",
+        image: "/previews/course-data-azure.png"
     },
     {
         id: "snowflake",
         title: "Data Engineering with Snowflake",
-        description: "Learn modern data warehousing with Snowflake."
+        description: "Learn modern data warehousing with Snowflake.",
+        image: "/previews/course-snowflake.png"
     },
     {
         id: "powerbi",
         title: "PowerBI & Power Automate",
-        description: "Create powerful business intelligence dashboards and automations."
+        description: "Create powerful business intelligence dashboards and automations.",
+        image: "/previews/course-powerbi.png"
     },
     {
         id: "nosql",
         title: "Managing Semi-structured Data with NoSQL",
-        description: "Work with modern NoSQL databases for flexible data storage."
+        description: "Work with modern NoSQL databases for flexible data storage.",
+        image: "/previews/course-nosql.png"
     }
 ];
 
@@ -177,42 +185,48 @@ export const workshopsData = [
         title: "Vibe Coding a GenAI application(C3)",
         category: "GenAI",
         status: "CLASS FULL",
-        description: "Join our intensive GenAI Vibe Coding workshop. Learn to build AI apps without writing boilerplate code."
+        description: "Join our intensive GenAI Vibe Coding workshop. Learn to build AI apps without writing boilerplate code.",
+        image: "/previews/workshop-genai-app.png"
     },
     {
         id: "python-basics",
         title: "Python for All",
         category: "Basics",
         status: "LIVE",
-        description: "Learn Python programming from scratch with hands-on exercises."
+        description: "Learn Python programming from scratch with hands-on exercises.",
+        image: "/previews/workshop-python-basics.png"
     },
     {
         id: "ai-agile",
         title: "AI Meets Agile",
         category: "Management",
         status: "UPCOMING",
-        description: "Integrate AI into your Agile workflow for better project management."
+        description: "Integrate AI into your Agile workflow for better project management.",
+        image: "/previews/workshop-ai-agile.png"
     },
     {
         id: "agentic-no-code",
         title: "Agentic AI for Non-Coders",
         category: "No-Code",
         status: "CLASS FULL",
-        description: "Build autonomous AI agents without writing code."
+        description: "Build autonomous AI agents without writing code.",
+        image: "/previews/workshop-agentic-no-code.png"
     },
     {
         id: "agentic-adv",
         title: "Agentic AI - Build Autonomous Solutions (C1)",
         category: "Advanced",
         status: "UPCOMING",
-        description: "Advanced workshop on building autonomous AI systems."
+        description: "Advanced workshop on building autonomous AI systems.",
+        image: "/previews/workshop-agentic-adv.png"
     },
     {
         id: "hr-genai",
         title: "GenAI Powered Transformative HR",
         category: "Business",
         status: "UPCOMING",
-        description: "Transform HR processes with Generative AI tools and techniques."
+        description: "Transform HR processes with Generative AI tools and techniques.",
+        image: "/previews/workshop-hr-genai.png"
     }
 ];
 

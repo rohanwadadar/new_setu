@@ -8,8 +8,9 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "prerender": "node prerender/generatePreviewHtml.js",
-    "build:all": "vite build && node prerender/generatePreviewHtml.js",
+    "prerender": "node prerender/generateYouTubeStylePreviews.js",
+    "prerender:old": "node prerender/generatePreviewHtml.js",
+    "build:all": "vite build && node prerender/generateYouTubeStylePreviews.js",
     "deploy": "npm run build:all && gh-pages -d dist"
   },
   "devDependencies": {

@@ -568,7 +568,10 @@ async function generatePage(template, page) {
 
     // 2. ABSOLUTE URLs (CRITICAL for Google)
     const pageUrl = `${GITHUB_PAGES_URL}${routePath === '/' ? '' : routePath}`;
-    const imageUrl = `${RAW_GITHUB_URL}/public/previews/${imageFile}`;
+
+    // CHANGE: Use Production URL (GitHub Pages) instead of Raw GitHub
+    // Files in /public/previews/ at build time move to /previews/ in dist
+    const imageUrl = `${GITHUB_PAGES_URL}/previews/${imageFile}`;
 
     // 3. Generate YouTube-style meta tags with SPECIFIC image
     const metaTags = generateYouTubeStyleMetaTags(title, description, imageUrl, pageUrl, type, extraData);
@@ -787,7 +790,8 @@ function createSitemap(pages) {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${pages.map(page => {
-        const imageUrl = `${RAW_GITHUB_URL}/public/previews/${page.imageFile}`;
+        // EQUALLY CRITICAL: Use Production URL for sitemap images too
+        const imageUrl = `${GITHUB_PAGES_URL}/previews/${page.imageFile}`;
         return `    <url>
         <loc>${GITHUB_PAGES_URL}${page.path}</loc>
         <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>

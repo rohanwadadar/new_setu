@@ -569,10 +569,9 @@ async function generatePage(template, page) {
     // 2. ABSOLUTE URLs (CRITICAL for Google)
     const pageUrl = `${GITHUB_PAGES_URL}${routePath === '/' ? '' : routePath}`;
 
-    // CHANGE: Use Production URL (GitHub Pages) instead of Raw GitHub
-    // Files in /public/previews/ at build time move to /previews/ in dist
+    // FIXED: Use GitHub RAW URL instead of GitHub Pages URL to avoid 404s
     // Added ?v=3 to force cache refresh on WhatsApp
-    const imageUrl = `${GITHUB_PAGES_URL}/previews/${imageFile}?v=3`;
+    const imageUrl = `${RAW_GITHUB_URL}/public/previews/${imageFile}?v=3`;
 
     // 3. Generate YouTube-style meta tags with SPECIFIC image
     const metaTags = generateYouTubeStyleMetaTags(title, description, imageUrl, pageUrl, type, extraData);

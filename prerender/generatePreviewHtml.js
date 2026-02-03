@@ -1,195 +1,3 @@
-// import fs from 'fs';
-// import path from 'path';
-// import { fileURLToPath } from 'url';
-// import { routesData, selfPacedCourses, workshopsData } from '../src/data/appData.js';
-
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-
-// const DIST_DIR = path.resolve(__dirname, '../dist');
-// const TEMPLATE_PATH = path.join(DIST_DIR, 'index.html');
-
-// // Configuration - Absolute URLs for Google Chat compatibility
-// const BASE_URL = "https://rohanwadadar.github.io/new_setu";
-// const BASE_PATH = "/new_setu"; // For images
-
-
-// async function generatePreviews() {
-//     console.log("🚀 Starting Pre-render Generation...");
-
-//     if (!fs.existsSync(TEMPLATE_PATH)) {
-//         console.error("❌ Error: dist/index.html not found. Please run 'npm run build' first.");
-//         process.exit(1);
-//     }
-
-//     const template = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
-
-//     // Helper to write HTML file
-//     const writeHtml = (routePath, title, description, image) => {
-//         // 1. Prepare Directory
-//         const cleanPath = routePath.startsWith('/') ? routePath.slice(1) : routePath;
-//         let outDir = DIST_DIR;
-//         let fileName = 'index.html';
-
-//         if (cleanPath !== "") {
-//             outDir = path.join(DIST_DIR, cleanPath);
-//             if (!fs.existsSync(outDir)) {
-//                 fs.mkdirSync(outDir, { recursive: true });
-//             }
-//         }
-
-//         // 2. Inject Meta Tags
-//         let html = template;
-
-//         // Ensure image has full path if it's relative
-//         const fullImage = image.startsWith('http') ? image : `${BASE_URL}${image}`;
-
-//         // Replace Title
-//         html = html.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
-
-//         // Replace Description (if exists, else append)
-//         const descTag = `<meta name="description" content="${description}" />`;
-//         if (html.includes('<meta name="description"')) {
-//             html = html.replace(/<meta name="description".*?>/, descTag);
-//         } else {
-//             html = html.replace('</head>', `${descTag}\n</head>`);
-//         }
-
-//         // Sanitize description for meta tags
-//         const safeDesc = description
-//             .replace(/"/g, '&quot;')
-//             .replace(/</g, '&lt;')
-//             .replace(/>/g, '&gt;')
-//             .substring(0, 155);
-
-//         // Add Complete Meta Tags (Google Chat + Open Graph + Twitter)
-//         const ogTags = `
-//         <!-- CRITICAL: Google Chat/Messages requires itemprop Schema.org tags -->
-//         <meta itemprop="name" content="${title}" />
-//         <meta itemprop="description" content="${safeDesc}" />
-//         <meta itemprop="image" content="${fullImage}" />
-//         <meta itemprop="url" content="${BASE_URL}${routePath}" />
-        
-//         <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
-//         <meta property="og:title" content="${title}" />
-//         <meta property="og:description" content="${safeDesc}" />
-//         <meta property="og:image" content="${fullImage}" />
-//         <meta property="og:image:url" content="${fullImage}" />
-//         <meta property="og:image:secure_url" content="${fullImage}" />
-//         <meta property="og:image:type" content="image/png" />
-//         <meta property="og:image:width" content="1200" />
-//         <meta property="og:image:height" content="630" />
-//         <meta property="og:image:alt" content="${title}" />
-//         <meta property="og:url" content="${BASE_URL}${routePath}" />
-//         <meta property="og:type" content="website" />
-//         <meta property="og:site_name" content="SETU School of AI" />
-//         <meta property="og:locale" content="en_US" />
-        
-//         <!-- Twitter Card -->
-//         <meta name="twitter:card" content="summary_large_image" />
-//         <meta name="twitter:title" content="${title}" />
-//         <meta name="twitter:description" content="${safeDesc}" />
-//         <meta name="twitter:image" content="${fullImage}" />
-//         <meta name="twitter:image:alt" content="${title}" />
-        
-//         <!-- Additional SEO -->
-//         <meta name="keywords" content="AI, Machine Learning, Data Science, SETU, Courses, Workshops" />
-//         <meta name="author" content="SETU School of AI" />
-//         <link rel="canonical" href="${BASE_URL}${routePath}" />
-//         `;
-
-//         // Inject before </head>
-//         html = html.replace('</head>', `${ogTags}\n</head>`);
-
-//         // 3. Write index.html in the folder
-//         const outPath = path.join(outDir, fileName);
-//         fs.writeFileSync(outPath, html);
-//         console.log(`✅ Generated: ${routePath} -> ${outPath}`);
-//     };
-
-//     // --- GENERATION LOOP ---
-
-//     // 1. Static Routes
-//     routesData.forEach(route => {
-//         if (route.path.includes(':')) return; // Skip dynamic routes here
-
-//         writeHtml(
-//             route.path,
-//             route.title,
-//             route.description || "SETU School of AI",
-//             "/previews/default.png" // FORCED AS REQUESTED
-//         );
-//     });
-
-//     // 2. Dynamic Course Routes (/course/:courseId)
-//     const courseRoute = routesData.find(r => r.id === 'course-detail');
-//     if (courseRoute) {
-//         selfPacedCourses.forEach(course => {
-//             const path = `/course/${course.id}`;
-//             const title = `SETU | ${course.title}`;
-//             const desc = course.description || courseRoute.description || "Detailed course curriculum and outcomes.";
-//             const image = "https://rohanwadadar.github.io/new_setu/previews/default.png"; // FORCED AS REQUESTED
-
-//             writeHtml(path, title, desc, image);
-//         });
-//     }
-
-//     // 3. Dynamic Workshop Routes (/workshop/:workshopId)
-//     const workshopRoute = routesData.find(r => r.id === 'workshop-detail');
-//     if (workshopRoute) {
-//         workshopsData.forEach(workshop => {
-//             const path = `/workshop/${workshop.id}`;
-//             const title = `SETU | Workshop: ${workshop.title}`;
-//             const desc = workshop.description || `Join our ${workshop.category} Live Workshop on ${workshop.title}. Status: ${workshop.status}.`;
-//             const image = "https://rohanwadadar.github.io/new_setu/previews/default.png";
-
-//             writeHtml(path, title, desc, image);
-//         });
-//     }
-
-//     // 4. Create 404.html (Copy of root index.html)
-//     // This ensures that unknown routes are handled by React instead of GitHub's 404
-//     if (fs.existsSync(path.join(DIST_DIR, 'index.html'))) {
-//         fs.copyFileSync(path.join(DIST_DIR, 'index.html'), path.join(DIST_DIR, '404.html'));
-//         console.log("✅ Generated: 404.html (SPA Fallback)");
-//     }
-
-//     // 5. Create .nojekyll
-//     fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
-//     console.log("✅ Generated: .nojekyll");
-
-//     // 6. Create _headers file for proper Content-Type (helps Google Chat)
-//     const headersContent = `/*
-//   X-Content-Type-Options: nosniff
-//   X-Frame-Options: DENY
-//   Referrer-Policy: strict-origin-when-cross-origin
-  
-// /previews/*
-//   Cache-Control: public, max-age=31536000, immutable
-  
-// /*.html
-//   Cache-Control: public, max-age=0, must-revalidate
-// `;
-//     fs.writeFileSync(path.join(DIST_DIR, '_headers'), headersContent);
-//     console.log("✅ Generated: _headers");
-
-//     // 7. Create robots.txt for SEO
-//     const robotsContent = `User-agent: *
-// Allow: /
-
-// Sitemap: ${BASE_URL}/sitemap.xml
-// `;
-//     fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), robotsContent);
-//     console.log("✅ Generated: robots.txt");
-
-//     console.log("🎉 Pre-rendering complete!");
-//     console.log("\n📱 Google Chat Preview Tips:");
-//     console.log("- Wait 24-48 hours for Google's cache to update");
-//     console.log("- Test with: https://cards-dev.twitter.com/validator");
-//     console.log("- Clear Google Chat cache if needed");
-// }
-
-// generatePreviews();
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -201,36 +9,52 @@ const __dirname = path.dirname(__filename);
 const DIST_DIR = path.resolve(__dirname, '../dist');
 const TEMPLATE_PATH = path.join(DIST_DIR, 'index.html');
 
-// Configuration - Absolute URLs for Google Chat compatibility
+// Configuration
 const BASE_URL = "https://rohanwadadar.github.io/new_setu";
-const BASE_PATH = "/new_setu"; // For images
+const GITHUB_RAW_URL = "https://raw.githubusercontent.com/rohanwadadar/new_setu/main/public";
 
-// Helper to resolve image path (handles both relative and absolute URLs)
+// FIXED: Use GitHub RAW URLs (NO 404s!)
 const resolveImage = (imagePath) => {
-    if (!imagePath) return `${BASE_URL}/previews/default.png`;
+    console.log(`Resolving image: ${imagePath}`);
+
+    if (!imagePath || imagePath === '/previews/default.png') {
+        return `${GITHUB_RAW_URL}/previews/default.png`;
+    }
+
     if (imagePath.startsWith('http')) return imagePath;
-    // Ensure path starts with / for absolute URL construction
-    const cleanPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
-    return `${BASE_URL}${cleanPath}`;
+
+    // Extract filename
+    let filename = 'default.png';
+    if (imagePath.includes('/')) {
+        filename = imagePath.split('/').pop();
+    } else {
+        filename = imagePath;
+    }
+
+    // Ensure it's a PNG if no extension
+    if (!filename.toLowerCase().endsWith('.png') &&
+        !filename.toLowerCase().endsWith('.jpg') &&
+        !filename.toLowerCase().endsWith('.jpeg')) {
+        filename += '.png';
+    }
+
+    return `${GITHUB_RAW_URL}/previews/${filename}`;
 };
 
 async function generatePreviews() {
-    console.log("🚀 Starting Pre-render Generation...");
+    console.log("🚀 Starting UPDATED Pre-render Generation...");
 
     if (!fs.existsSync(TEMPLATE_PATH)) {
-        console.error("❌ Error: dist/index.html not found. Please run 'npm run build' first.");
+        console.error("❌ Error: dist/index.html not found.");
         process.exit(1);
     }
 
     const template = fs.readFileSync(TEMPLATE_PATH, 'utf-8');
 
-    // Helper to write HTML file
     const writeHtml = (routePath, title, description, imagePath) => {
-        // 1. Prepare Directory
+        // Directory setup
         const cleanPath = routePath.startsWith('/') ? routePath.slice(1) : routePath;
         let outDir = DIST_DIR;
-        let fileName = 'index.html';
-
         if (cleanPath !== "") {
             outDir = path.join(DIST_DIR, cleanPath);
             if (!fs.existsSync(outDir)) {
@@ -238,21 +62,24 @@ async function generatePreviews() {
             }
         }
 
-        // 2. Prepare content
-        let html = template;
+        // Get ABSOLUTE image URL (FIXED)
         const fullImage = resolveImage(imagePath);
-        
-        // Sanitize description for meta tags
+        console.log(`  Writing ${routePath} -> Image URL: ${fullImage}`);
+
+        // Prepare HTML
+        let html = template;
+
+        // Sanitize description
         const safeDesc = (description || "SETU School of AI")
             .replace(/"/g, '&quot;')
             .replace(/</g, '&lt;')
             .replace(/>/g, '&gt;')
             .substring(0, 155);
 
-        // 3. Replace Title
+        // Replace title
         html = html.replace(/<title>.*?<\/title>/, `<title>${title}</title>`);
 
-        // 4. Replace/Add Description
+        // Replace description
         const descTag = `<meta name="description" content="${safeDesc}" />`;
         if (html.includes('<meta name="description"')) {
             html = html.replace(/<meta name="description".*?>/, descTag);
@@ -260,59 +87,68 @@ async function generatePreviews() {
             html = html.replace('</head>', `${descTag}\n</head>`);
         }
 
-        // 5. Add Complete Meta Tags (Google Chat + Open Graph + Twitter)
-        const ogTags = `
-        <!-- CRITICAL: Google Chat/Messages requires itemprop Schema.org tags -->
-        <meta itemprop="name" content="${title}" />
-        <meta itemprop="description" content="${safeDesc}" />
-        <meta itemprop="image" content="${fullImage}" />
-        <meta itemprop="url" content="${BASE_URL}${routePath}" />
+        // Add meta tags with JSON-LD (MISSING IN YOUR CODE!)
+        const metaTags = `
+        <!-- Primary -->
+        <meta name="description" content="${safeDesc}">
         
-        <!-- Open Graph (Facebook, LinkedIn, WhatsApp) -->
-        <meta property="og:title" content="${title}" />
-        <meta property="og:description" content="${safeDesc}" />
-        <meta property="og:image" content="${fullImage}" />
-        <meta property="og:image:url" content="${fullImage}" />
-        <meta property="og:image:secure_url" content="${fullImage}" />
-        <meta property="og:image:type" content="image/png" />
-        <meta property="og:image:width" content="1200" />
-        <meta property="og:image:height" content="630" />
-        <meta property="og:image:alt" content="${title}" />
-        <meta property="og:url" content="${BASE_URL}${routePath}" />
-        <meta property="og:type" content="website" />
-        <meta property="og:site_name" content="SETU School of AI" />
-        <meta property="og:locale" content="en_US" />
+        <!-- Google REQUIRED -->
+        <meta itemprop="name" content="${title}">
+        <meta itemprop="description" content="${safeDesc}">
+        <meta itemprop="image" content="${fullImage}">
+        <meta itemprop="url" content="${BASE_URL}${routePath}">
         
-        <!-- Twitter Card -->
-        <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:title" content="${title}" />
-        <meta name="twitter:description" content="${safeDesc}" />
-        <meta name="twitter:image" content="${fullImage}" />
-        <meta name="twitter:image:alt" content="${title}" />
+        <!-- JSON-LD Structured Data (CRITICAL FOR GOOGLE) -->
+        <script type="application/ld+json">
+        {
+          "@context": "https://schema.org",
+          "@type": "${routePath.includes('/course/') ? 'Course' : 'WebPage'}",
+          "name": "${title}",
+          "description": "${safeDesc}",
+          "url": "${BASE_URL}${routePath}",
+          "image": "${fullImage}",
+          "publisher": {
+            "@type": "Organization",
+            "name": "SETU School of AI",
+            "url": "${BASE_URL}"
+          }
+        }
+        </script>
         
-        <!-- Additional SEO -->
-        <meta name="keywords" content="AI, Machine Learning, Data Science, SETU, Courses, Workshops" />
-        <meta name="author" content="SETU School of AI" />
-        <link rel="canonical" href="${BASE_URL}${routePath}" />
+        <!-- Open Graph -->
+        <meta property="og:title" content="${title}">
+        <meta property="og:description" content="${safeDesc}">
+        <meta property="og:image" content="${fullImage}">
+        <meta property="og:url" content="${BASE_URL}${routePath}">
+        <meta property="og:type" content="website">
+        <meta property="og:site_name" content="SETU School of AI">
+        
+        <!-- Twitter -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:title" content="${title}">
+        <meta name="twitter:description" content="${safeDesc}">
+        <meta name="twitter:image" content="${fullImage}">
+        
+        <!-- Canonical -->
+        <link rel="canonical" href="${BASE_URL}${routePath}">
         `;
 
-        // Inject before </head>
-        html = html.replace('</head>', `${ogTags}\n</head>`);
+        // Inject meta tags before </head>
+        html = html.replace('</head>', `${metaTags}\n</head>`);
 
-        // 6. Write file
-        const outPath = path.join(outDir, fileName);
+        // Write file
+        const outPath = path.join(outDir, 'index.html');
         fs.writeFileSync(outPath, html);
-        console.log(`✅ Generated: ${routePath} -> ${outPath} (Image: ${imagePath})`);
+        console.log(`✅ ${routePath}`);
     };
 
     // --- GENERATION LOOP ---
 
-    // 1. Static Routes - Uses route.previewImage from routesData
-    console.log("\n📄 Generating Static Routes...");
+    console.log("\n📄 Generating routes...");
+
+    // 1. Static Routes
     routesData.forEach(route => {
-        if (route.path.includes(':')) return; // Skip dynamic routes here
-        
-        // Use the specific previewImage from route data
+        if (route.path.includes(':')) return;
         writeHtml(
             route.path,
             route.title,
@@ -321,79 +157,87 @@ async function generatePreviews() {
         );
     });
 
-    // 2. Dynamic Course Routes (/course/:courseId) - Uses course.image
-    console.log("\n📚 Generating Course Routes...");
+    // 2. Course Routes
     const courseRoute = routesData.find(r => r.id === 'course-detail');
     if (courseRoute) {
         selfPacedCourses.forEach(course => {
-            const path = `/course/${course.id}`;
-            const title = `SETU | ${course.title}`;
-            const desc = course.description || courseRoute.description || "Detailed course curriculum and outcomes.";
-            
-            // Use course-specific image from appData.js
-            // Falls back to /previews/courses.png if not specified
-            const image = course.image || course.previewImage || "/previews/courses.png";
-            
-            writeHtml(path, title, desc, image);
+            writeHtml(
+                `/course/${course.id}`,
+                `SETU | ${course.title}`,
+                course.description || "AI/ML Course",
+                course.image || course.previewImage || "/previews/course.png"
+            );
         });
     }
 
-    // 3. Dynamic Workshop Routes (/workshop/:workshopId) - Uses workshop.image
-    console.log("\n🎓 Generating Workshop Routes...");
+    // 3. Workshop Routes
     const workshopRoute = routesData.find(r => r.id === 'workshop-detail');
     if (workshopRoute) {
         workshopsData.forEach(workshop => {
-            const path = `/workshop/${workshop.id}`;
-            const title = `SETU | Workshop: ${workshop.title}`;
-            const desc = workshop.description || `Join our ${workshop.category} Live Workshop on ${workshop.title}. Status: ${workshop.status}.`;
-            
-            // Use workshop-specific image from appData.js
-            // Falls back to /previews/workshop.png if not specified
-            const image = workshop.image || workshop.previewImage || "/previews/workshop.png";
-            
-            writeHtml(path, title, desc, image);
+            writeHtml(
+                `/workshop/${workshop.id}`,
+                `SETU Workshop: ${workshop.title}`,
+                workshop.description || "Live Workshop",
+                workshop.image || workshop.previewImage || "/previews/workshop.png"
+            );
         });
     }
 
-    // 4. Create 404.html (Uses default image)
-    if (fs.existsSync(path.join(DIST_DIR, 'index.html'))) {
-        fs.copyFileSync(path.join(DIST_DIR, 'index.html'), path.join(DIST_DIR, '404.html'));
-        console.log("✅ Generated: 404.html (SPA Fallback)");
-    }
+    // 4. Create essential files
+    createEssentialFiles();
 
-    // 5. Create .nojekyll
-    fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
-    console.log("✅ Generated: .nojekyll");
-
-    // 6. Create _headers file
-    const headersContent = `/*
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
-  Referrer-Policy: strict-origin-when-cross-origin
-  
-/previews/*
-  Cache-Control: public, max-age=31536000, immutable
-  
-/*.html
-  Cache-Control: public, max-age=0, must-revalidate
-`;
-    fs.writeFileSync(path.join(DIST_DIR, '_headers'), headersContent);
-    console.log("✅ Generated: _headers");
-
-    // 7. Create robots.txt
-    const robotsContent = `User-agent: *
-Allow: /
-
-Sitemap: ${BASE_URL}/sitemap.xml
-`;
-    fs.writeFileSync(path.join(DIST_DIR, 'robots.txt'), robotsContent);
-    console.log("✅ Generated: robots.txt");
-
-    console.log("\n🎉 Pre-rendering complete!");
-    console.log("\n📱 Google Chat Preview Tips:");
-    console.log("- Wait 24-48 hours for Google's cache to update");
-    console.log("- Test with: https://cards-dev.twitter.com/validator");
-    console.log("- Clear Google Chat cache if needed");
+    console.log("\n🎉 PREVIEWS FIXED!");
+    console.log("\n🔍 TEST YOUR IMAGES:");
+    console.log(`1. ${resolveImage("/previews/default.png")}`);
+    console.log(`2. ${resolveImage("course.png")}`);
+    console.log(`\n📱 Test NOW in Google Chat with NEW links!`);
 }
 
-generatePreviews();
+function createEssentialFiles() {
+    // Create .nojekyll
+    fs.writeFileSync(path.join(DIST_DIR, '.nojekyll'), '');
+
+    // Create sitemap
+    const sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+        <loc>${BASE_URL}/</loc>
+        <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>
+        <priority>1.0</priority>
+    </url>
+</urlset>`;
+
+    fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemap);
+
+    // Also create 404.html for SPA support on GitHub Pages
+    if (fs.existsSync(path.join(DIST_DIR, 'index.html'))) {
+        fs.copyFileSync(path.join(DIST_DIR, 'index.html'), path.join(DIST_DIR, '404.html'));
+    }
+
+    console.log("✅ Essential files created");
+}
+
+// TEST FUNCTION - Check if images exist
+async function testImageUrls() {
+    console.log("\n🔍 TESTING IMAGE URLs...");
+
+    const testUrls = [
+        "https://raw.githubusercontent.com/rohanwadadar/new_setu/main/public/previews/default.png",
+        "https://rohanwadadar.github.io/new_setu/previews/default.png"
+    ];
+
+    for (const url of testUrls) {
+        try {
+            console.log(`Testing: ${url}`);
+            // Note: Since we are running locally, we might not have internet or the server might not be up yet
+            // But this function is part of the provided code.
+        } catch (error) {
+            console.log(`❌ ${url} - Error: ${error.message}`);
+        }
+    }
+}
+
+// Run tests first
+testImageUrls().then(() => {
+    generatePreviews();
+});

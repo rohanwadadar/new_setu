@@ -11,14 +11,14 @@ const TEMPLATE_PATH = path.join(DIST_DIR, 'index.html');
 
 // Configuration
 const BASE_URL = "https://rohanwadadar.github.io/new_setu";
-const GITHUB_RAW_URL = "https://raw.githubusercontent.com/rohanwadadar/new_setu/main/public";
+const IMAGEKIT_URL = "https://ik.imagekit.io/rohanwadadar/public/previews";
 
-// FIXED: Use GitHub RAW URLs (NO 404s!)
+// FIXED: Use ImageKit URLs (Highly reliable for Google Chat)
 const resolveImage = (imagePath) => {
     console.log(`Resolving image: ${imagePath}`);
 
     if (!imagePath || imagePath === '/previews/default.png') {
-        return `${GITHUB_RAW_URL}/previews/default.png`;
+        return `${IMAGEKIT_URL}/default.png`;
     }
 
     if (imagePath.startsWith('http')) return imagePath;
@@ -38,7 +38,7 @@ const resolveImage = (imagePath) => {
         filename += '.png';
     }
 
-    return `${GITHUB_RAW_URL}/previews/${filename}`;
+    return `${IMAGEKIT_URL}/${filename}`;
 };
 
 async function generatePreviews() {

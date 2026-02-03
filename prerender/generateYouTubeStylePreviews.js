@@ -413,8 +413,8 @@ const GITHUB_USER = 'rohanwadadar';
 const REPO_NAME = 'new_setu';
 const BRANCH = 'main'; // or 'master'
 
-// FREE Image URLs (NO 404!) - Using GitHub Raw URLs
-const RAW_GITHUB_URL = `https://raw.githubusercontent.com/${GITHUB_USER}/${REPO_NAME}/${BRANCH}`;
+// FREE Image URLs (NO 404!) - Using ImageKit URLs for better reliability
+const IMAGEKIT_URL = "https://ik.imagekit.io/rohanwadadar/public/previews";
 const GITHUB_PAGES_URL = `https://${GITHUB_USER}.github.io/${REPO_NAME}`;
 
 // Helper to extract final filename from any path
@@ -569,9 +569,9 @@ async function generatePage(template, page) {
     // 2. ABSOLUTE URLs (CRITICAL for Google)
     const pageUrl = `${GITHUB_PAGES_URL}${routePath === '/' ? '' : routePath}`;
 
-    // FIXED: Use GitHub RAW URL instead of GitHub Pages URL to avoid 404s
-    // Added ?v=3 to force cache refresh on WhatsApp
-    const imageUrl = `${RAW_GITHUB_URL}/public/previews/${imageFile}?v=3`;
+    // FIXED: Use ImageKit URL instead of GitHub RAW to avoid 404s and improve trust
+    // Added ?v=4 to force cache refresh
+    const imageUrl = `${IMAGEKIT_URL}/${imageFile}?v=4`;
 
     // 3. Generate YouTube-style meta tags with SPECIFIC image
     const metaTags = generateYouTubeStyleMetaTags(title, description, imageUrl, pageUrl, type, extraData);
@@ -684,7 +684,7 @@ function generateStructuredData(title, description, imageUrl, pageUrl, type, ext
             "url": GITHUB_PAGES_URL,
             "logo": {
                 "@type": "ImageObject",
-                "url": `${RAW_GITHUB_URL}/public/previews/default.png`
+                "url": `${IMAGEKIT_URL}/default.png`
             }
         },
         "datePublished": new Date().toISOString().split('T')[0],
@@ -790,8 +790,8 @@ function createSitemap(pages) {
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 ${pages.map(page => {
-        // EQUALLY CRITICAL: Use Production URL for sitemap images too
-        const imageUrl = `${GITHUB_PAGES_URL}/previews/${page.imageFile}?v=3`;
+        // EQUALLY CRITICAL: Use ImageKit URL for sitemap images too
+        const imageUrl = `${IMAGEKIT_URL}/${page.imageFile}?v=4`;
         return `    <url>
         <loc>${GITHUB_PAGES_URL}${page.path}</loc>
         <lastmod>${new Date().toISOString().split('T')[0]}</lastmod>

@@ -3,67 +3,67 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         <image:image>
-            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.jpg?v=3</image:loc>
+            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.png?v=3</image:loc>
             <image:title>SETU School of AI - Master AI/ML • 100% Free</image:title>
         </image:image>
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>daily</changefreq>
         <priority>1.0</priority>
         <image:image>
-            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.jpg?v=3</image:loc>
+            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.png?v=3</image:loc>
             <image:title>SETU | Welcome to SETU - Your gateway to Data Science and AI.</image:title>
         </image:image>
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/about</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
-            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.jpg?v=3</image:loc>
+            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.png?v=3</image:loc>
             <image:title>SETU | About Our Mission</image:title>
         </image:image>
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/courses</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
-            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.jpg?v=3</image:loc>
+            <image:loc>https://rohanwadadar.github.io/new_setu/previews/courses.png?v=3</image:loc>
             <image:title>SETU | Courses | Browse our AI courses</image:title>
         </image:image>
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/roadmap</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
-            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.jpg?v=3</image:loc>
+            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.png?v=3</image:loc>
             <image:title>SETU | Your AI | Follow our step-by-step roadmap to master AI</image:title>
         </image:image>
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/enterprise</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
-            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.jpg?v=3</image:loc>
+            <image:loc>https://rohanwadadar.github.io/new_setu/previews/default.png?v=3</image:loc>
             <image:title>SETU | For Enterprise | SETU solutions for enterprise and businesses</image:title>
         </image:image>
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/course/llm</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -73,7 +73,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/course/genbi</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -83,7 +83,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/course/mlops</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -93,7 +93,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/course/data-aws</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -103,7 +103,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/course/data-azure</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -113,7 +113,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/course/snowflake</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -123,7 +123,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/course/powerbi</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -133,7 +133,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/course/nosql</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -143,7 +143,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/workshop/genai-app</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -153,7 +153,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/workshop/python-basics</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -163,7 +163,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/workshop/ai-agile</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -173,7 +173,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/workshop/agentic-no-code</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -183,7 +183,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/workshop/agentic-adv</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>
@@ -193,7 +193,7 @@
     </url>
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/workshop/hr-genai</loc>
-        <lastmod>2026-01-30</lastmod>
+        <lastmod>2026-02-03</lastmod>
         <changefreq>weekly</changefreq>
         <priority>0.8</priority>
         <image:image>

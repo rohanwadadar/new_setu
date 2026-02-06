@@ -1,8 +1,204 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://rohanwadadar.github.io/new_setu/</loc>
-        <lastmod>2026-02-03</lastmod>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>daily</changefreq>
         <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/default.png?v=4</image:loc>
+            <image:title>SETU School of AI - Master AI/ML • 100% Free</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/default.png?v=4</image:loc>
+            <image:title>SETU | Welcome to SETU - Your gateway to Data Science and AI.</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/about</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/default.png?v=4</image:loc>
+            <image:title>SETU | About Our Mission</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/courses</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/courses.png?v=4</image:loc>
+            <image:title>SETU | Courses | Browse our AI courses</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/roadmap</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/default.png?v=4</image:loc>
+            <image:title>SETU | Your AI | Follow our step-by-step roadmap to master AI</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/enterprise</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/default.png?v=4</image:loc>
+            <image:title>SETU | For Enterprise | SETU solutions for enterprise and businesses</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/course/llm</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/courses.png?v=4</image:loc>
+            <image:title>SETU Course: Large Language Modeling (LLM)</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/course/genbi</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/courses.png?v=4</image:loc>
+            <image:title>SETU Course: Generative Business Intelligence (GenBI)</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/course/mlops</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/courses.png?v=4</image:loc>
+            <image:title>SETU Course: MLOps & LLMOps</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/course/data-aws</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/courses.png?v=4</image:loc>
+            <image:title>SETU Course: Data Engineering with AWS</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/course/data-azure</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/courses.png?v=4</image:loc>
+            <image:title>SETU Course: Data Engineering with Azure</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/course/snowflake</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/courses.png?v=4</image:loc>
+            <image:title>SETU Course: Data Engineering with Snowflake</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/course/powerbi</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/courses.png?v=4</image:loc>
+            <image:title>SETU Course: PowerBI & Power Automate</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/course/nosql</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/courses.png?v=4</image:loc>
+            <image:title>SETU Course: Managing Semi-structured Data with NoSQL</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/workshop/genai-app</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/workshop.png?v=4</image:loc>
+            <image:title>SETU Workshop: Vibe Coding a GenAI application(C3)</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/workshop/python-basics</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/workshop.png?v=4</image:loc>
+            <image:title>SETU Workshop: Python for All</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/workshop/ai-agile</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/workshop.png?v=4</image:loc>
+            <image:title>SETU Workshop: AI Meets Agile</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/workshop/agentic-no-code</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/workshop.png?v=4</image:loc>
+            <image:title>SETU Workshop: Agentic AI for Non-Coders</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/workshop/agentic-adv</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/workshop.png?v=4</image:loc>
+            <image:title>SETU Workshop: Agentic AI - Build Autonomous Solutions (C1)</image:title>
+        </image:image>
+    </url>
+    <url>
+        <loc>https://rohanwadadar.github.io/new_setu/workshop/hr-genai</loc>
+        <lastmod>2026-02-06</lastmod>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+        <image:image>
+            <image:loc>https://ik.imagekit.io/rohanwadadar/public/previews/workshop.png?v=4</image:loc>
+            <image:title>SETU Workshop: GenAI Powered Transformative HR</image:title>
+        </image:image>
     </url>
 </urlset>

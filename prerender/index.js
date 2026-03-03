@@ -1,4 +1,5 @@
 import puppeteer from 'puppeteer';
+import http from 'http';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -95,22 +96,51 @@ function collectPages() {
 // 📸 PHASE 1  — TAKE REAL SCREENSHOTS OF EVERY PAGE
 // ============================================================================
 async function takeScreenshots(pages) {
-    console.log('📸  Phase 1 — Taking screenshots from live site…\n');
+    console.log('📸  Phase 1 — Taking screenshots of local build…\n');
 
     if (!fs.existsSync(PREVIEWS_DIR)) {
         fs.mkdirSync(PREVIEWS_DIR, { recursive: true });
     }
 
+    // Spin up a quick file server for dist/
+    const MIME_TYPES = {
+        '.html': 'text/html',
+        '.js': 'text/javascript',
+        '.css': 'text/css',
+        '.png': 'image/png',
+        '.svg': 'image/svg+xml'
+    };
+
+    const server = http.createServer((req, res) => {
+        let url = req.url.split('?')[0];
+        if (url.startsWith('/new_setu')) {
+            url = url.substring('/new_setu'.length);
+        }
+        if (url === '' || url === '/') url = '/index.html';
+
+        let filePath = path.join(DIST_DIR, url);
+        if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
+            filePath = path.join(DIST_DIR, 'index.html');
+        }
+
+        const ext = path.extname(filePath);
+        res.writeHead(200, { 'Content-Type': MIME_TYPES[ext] || 'application/octet-stream' });
+        fs.createReadStream(filePath).pipe(res);
+    }).listen(3000);
+
+    const localBaseUrl = 'http://localhost:3000/new_setu';
+
     const browser = await puppeteer.launch({
         headless: 'new',
-        args: ['--no-sandbox', '--disable-setuid-sandbox'],
+        args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
     const page = await browser.newPage();
     await page.setViewport({ width: OG_W, height: OG_H });
 
     for (const p of pages) {
-        const url = `${BASE_URL}${p.path}`;
+        // Build the local URL
+        const url = `${localBaseUrl}${p.path === '/' ? '' : p.path}`;
         const outPath = path.join(PREVIEWS_DIR, p.screenshot);
 
         try {
@@ -118,6 +148,13 @@ async function takeScreenshots(pages) {
             await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
             // Let fonts / animations settle
             await new Promise(r => setTimeout(r, 1500));
+
+            // Hide the share button so it doesn't appear in Open Graph preview images
+            await page.evaluate(() => {
+                const btn = document.getElementById('screenshot-share-btn-wrapper');
+                if (btn) btn.style.display = 'none';
+            });
+
             await page.screenshot({
                 path: outPath,
                 type: 'png',
@@ -130,6 +167,7 @@ async function takeScreenshots(pages) {
     }
 
     await browser.close();
+    server.close();
     console.log(`\n  ✔  Screenshots saved to public/previews/\n`);
 }
 

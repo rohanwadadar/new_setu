@@ -135,35 +135,41 @@ async function takeScreenshots(pages) {
         args: ['--no-sandbox', '--disable-setuid-sandbox']
     });
 
-    const page = await browser.newPage();
-    await page.setViewport({ width: OG_W, height: OG_H });
+    const BATCH_SIZE = 5; // Process 5 pages at a time
 
-    for (const p of pages) {
-        // Build the local URL
-        const url = `${localBaseUrl}${p.path === '/' ? '' : p.path}`;
-        const outPath = path.join(PREVIEWS_DIR, p.screenshot);
+    for (let i = 0; i < pages.length; i += BATCH_SIZE) {
+        const batch = pages.slice(i, i + BATCH_SIZE);
 
-        try {
-            process.stdout.write(`  📷  ${p.title}  →  ${p.screenshot} … `);
-            await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
-            // Let fonts / animations settle
-            await new Promise(r => setTimeout(r, 1500));
+        await Promise.all(batch.map(async (p) => {
+            const page = await browser.newPage();
+            await page.setViewport({ width: OG_W, height: OG_H });
 
-            // Hide the share button so it doesn't appear in Open Graph preview images
-            await page.evaluate(() => {
-                const btn = document.getElementById('screenshot-share-btn-wrapper');
-                if (btn) btn.style.display = 'none';
-            });
+            const url = `${localBaseUrl}${p.path === '/' ? '' : p.path}`;
+            const outPath = path.join(PREVIEWS_DIR, p.screenshot);
 
-            await page.screenshot({
-                path: outPath,
-                type: 'png',
-                clip: { x: 0, y: 0, width: OG_W, height: OG_H },
-            });
-            console.log('✅');
-        } catch (err) {
-            console.log(`❌  ${err.message}`);
-        }
+            try {
+                process.stdout.write(`  📷  ${p.title}  →  ${p.screenshot} … `);
+                await page.goto(url, { waitUntil: 'networkidle2', timeout: 30000 });
+                // Let fonts / animations settle
+                await new Promise(r => setTimeout(r, 1500));
+
+                // Hide the share button so it doesn't appear in Open Graph preview images
+                await page.evaluate(() => {
+                    const btn = document.getElementById('screenshot-share-btn-wrapper');
+                    if (btn) btn.style.display = 'none';
+                });
+
+                await page.screenshot({
+                    path: outPath,
+                    type: 'png',
+                    clip: { x: 0, y: 0, width: OG_W, height: OG_H },
+                });
+                console.log('✅');
+            } catch (err) {
+                console.log(`❌  ${err.message}`);
+            }
+            await page.close();
+        }));
     }
 
     await browser.close();

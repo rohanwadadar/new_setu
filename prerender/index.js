@@ -126,9 +126,14 @@ async function takeScreenshots(pages) {
         const ext = path.extname(filePath);
         res.writeHead(200, { 'Content-Type': MIME_TYPES[ext] || 'application/octet-stream' });
         fs.createReadStream(filePath).pipe(res);
-    }).listen(3000);
+    });
 
-    const localBaseUrl = 'http://localhost:3000/new_setu';
+    await new Promise((resolve) => {
+        server.listen(0, resolve);
+    });
+
+    const localPort = server.address().port;
+    const localBaseUrl = `http://localhost:${localPort}/new_setu`;
 
     const browser = await puppeteer.launch({
         headless: 'new',

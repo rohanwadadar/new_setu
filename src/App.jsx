@@ -15,7 +15,6 @@ import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PageTitleManager from "./utils/route_title";
 import { HelmetProvider } from "react-helmet-async";
-import ScreenshotShare from "./components/ScreenshotShare";
 
 // ============================================================================
 // 📄 IMPORT ALL PAGE COMPONENTS
@@ -140,7 +139,6 @@ function App() {
         {/* ========================================
                     FOOTER
                     ======================================== */}
-        <ScreenshotShare />
         <Footer />
 
       </div>

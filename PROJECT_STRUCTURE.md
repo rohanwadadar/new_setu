@@ -1,7 +1,7 @@
 # 📚 SETU Project Structure Guide
 
 ## 🎯 Overview
-This document explains the simplified SETU project structure. It's designed to be easy to understand for developers with basic React knowledge.
+This document explains the simplified SETU project structure. It's designed to be easy to understand for developers with basic React knowledge. The architecture focuses on having as few files as possible while maintaining scalability.
 
 ---
 
@@ -10,29 +10,29 @@ This document explains the simplified SETU project structure. It's designed to b
 ```
 specificforntend/
 ├── src/
-│   ├── config/
-│   │   └── routing.jsx          ← 🚀 ALL ROUTING LOGIC (MasterRoutes + routeConfig combined)
 │   ├── data/
 │   │   └── appData.js            ← 📊 ALL DATA (routes, courses, workshops combined)
 │   ├── components/
-│   │   ├── Layout.jsx            ← 🎨 Page wrapper (Navbar + Footer)
-│   │   ├── Navbar.jsx
-│   │   └── Footer.jsx
+│   │   ├── Navbar.jsx            ← Navigation menu
+│   │   └── Footer.jsx            ← Page footer
 │   ├── pages/
 │   │   ├── Home.jsx
 │   │   ├── About.jsx
 │   │   ├── Courses.jsx
-│   │   ├── CourseDetail.jsx     ← Handles ALL course pages
-│   │   ├── WorkshopDetail.jsx   ← Handles ALL workshop pages
+│   │   ├── CourseDetail.jsx     ← Handles ALL course pages (dynamic)
+│   │   ├── WorkshopDetail.jsx   ← Handles ALL workshop pages (dynamic)
 │   │   ├── Roadmap.jsx
 │   │   └── ForEnterprise.jsx
-│   ├── App.jsx                   ← 🎯 Entry point (loads routing)
+│   ├── utils/
+│   │   └── route_title.jsx      ← 🏷️ DYNAMIC TITLES (updates browser tab & SEO)
+│   ├── api/                      ← 🔌 API logic (auth, axios, profile)
+│   ├── App.jsx                   ← 🎯 MASTER FILE (Routes + Layout + Backgrounds)
 │   ├── main.jsx                  ← React initialization
 │   └── index.css                 ← Global styles
 ├── prerender/
-│   └── generatePreviewHtml.js    ← 🔧 Generates SEO-friendly HTML
+│   └── engine.js                 ← 🔧 Unified SEO & Prerender Engine
 └── public/
-    └── previews/                 ← Social media preview images
+    └── previews/                 ← Generated social media preview images
         ├── default.png
         ├── courses.png
         └── workshop.png
@@ -44,83 +44,48 @@ specificforntend/
 
 ### 1. **`src/data/appData.js`** - The Data Center
 **What it contains:**
-- All navigation routes
-- All courses
-- All workshops
-- Helper functions to find data
+- All navigation routes (labels, paths, icons)
+- All course details (titles, descriptions, curriculum)
+- All workshop details
+- Helper functions to fetch data by ID
 
 **Why it's important:**
-- Single source of truth for all data
-- Easy to add new courses/workshops
-- No need to edit multiple files
-
-**How to use:**
-```javascript
-// Import what you need
-import { selfPacedCourses, getCourseById } from './data/appData';
-
-// Get all courses
-console.log(selfPacedCourses);
-
-// Get a specific course
-const course = getCourseById('llm');
-```
+- Single source of truth for all content.
+- Easy to add new items without touching UI code.
+- Centralized SEO metadata (titles, descriptions).
 
 ---
 
-### 2. **`src/config/routing.jsx`** - The Routing System
-**What it contains:**
-- All route definitions
-- Page Manager (handles browser titles)
-- Main Router component
-
-**Why it's important:**
-- Single file for all routing logic
-- Automatically generates routes from data
-- Handles dynamic routes (courses, workshops)
-
-**How it works:**
-1. Imports all page components
-2. Maps routes to components
-3. Renders the correct page based on URL
-
----
-
-### 3. **`src/App.jsx`** - The Entry Point
+### 2. **`src/App.jsx`** - The Master Controller
 **What it does:**
-- Loads the routing system
-- That's it! Super simple.
-
-**Code:**
-```javascript
-import MasterRoutes from "./config/routing";
-
-function App() {
-    return <MasterRoutes />;
-}
-```
-
----
-
-### 4. **`src/components/Layout.jsx`** - The Page Wrapper
-**What it does:**
-- Wraps all pages with Navbar and Footer
-- Adds background effects
-- Provides consistent layout
+- **Routing:** Defines every URL path and connects it to a Page.
+- **Layout:** Wraps the entire site in the `Navbar` and `Footer`.
+- **Backgrounds:** Global styles like the technical grid and blur effects.
+- **Title Manager:** Activates the dynamic page title updates.
 
 **Structure:**
+```javascript
+<BrowserRouter>
+    <PageTitleManager />  {/* Updates titles */}
+    <div>
+        <Navbar />        {/* Always visible */}
+        <main>
+            <Routes> ... </Routes> {/* Page content changes here */}
+        </main>
+        <Footer />        {/* Always visible */}
+    </div>
+</BrowserRouter>
 ```
-┌─────────────────────────┐
-│       Navbar            │
-├─────────────────────────┤
-│                         │
-│    Page Content         │
-│    (changes per URL)    │
-│                         │
-├─────────────────────────┤
-│       Footer            │
-└─────────────────────────┘
-```
+
+---
+
+### 3. **`src/utils/route_title.jsx`** - The SEO/Title Engine
+**What it does:**
+- Listens for URL changes.
+- Automatically finds the correct title in `appData.js`.
+- Updates the browser tab title (e.g., "SETU | Course Name").
+- Updates meta descriptions for search engines.
+- Scrolls the page to the top when you click a link.
 
 ---
 
@@ -130,352 +95,73 @@ function App() {
 
 **Step 1:** Create the component
 ```javascript
-// src/pages/MyNewPage.jsx
-export default function MyNewPage() {
-    return (
-        <div>
-            <h1>My New Page</h1>
-            <p>Content here</p>
-        </div>
-    );
+// src/pages/NewSupport.jsx
+export default function NewSupport() {
+    return <div>Support Content</div>;
 }
 ```
 
-**Step 2:** Import it in `routing.jsx`
-```javascript
-import MyNewPage from "./pages/MyNewPage";
-```
+**Step 2:** Register in `src/App.jsx`
+1. Import the component.
+2. Add to `componentMap`: `"support": <NewSupport />`.
 
-**Step 3:** Add to componentMap in `routing.jsx`
+**Step 3:** Add Route Data in `src/data/appData.js`
 ```javascript
-const componentMap = {
-    // ... existing mappings
-    "my-new-page": <MyNewPage />
-};
+{
+    id: "support",
+    path: "/support",
+    label: "Support",
+    showInNav: true,
+    title: "SETU | Support Center",
+    description: "Need help? Contact us.",
+    previewImage: "/previews/default.png"
+}
 ```
-
-**Step 4:** Add route data in `appData.js`
-```javascript
-export const routesData = [
-    // ... existing routes
-    {
-        id: "my-new-page",
-        path: "/my-new-page",
-        label: "My New Page",
-        showInNav: true,  // Shows in navigation menu
-        title: "SETU | My New Page",
-        description: "Description for SEO",
-        previewImage: "/previews/default.png",
-        protected: false
-    }
-];
-```
-
-**Done!** Your page is now accessible at `/my-new-page`
 
 ---
 
-### ✅ Add a New Course
+### ✅ Add a New Course or Workshop
 
 **Step 1:** Add to `appData.js`
-```javascript
-export const selfPacedCourses = [
-    // ... existing courses
-    {
-        id: "my-course",
-        title: "My Amazing Course",
-        description: "Learn amazing things"
-    }
-];
-```
+Simply add an object to the `selfPacedCourses` or `workshopsData` array.
 
-**Done!** The course is now accessible at `/course/my-course`
-
-*Note: No need to create a new component - `CourseDetail.jsx` handles all courses*
+**Step 2:** Done! 
+The app automatically creates `/course/your-id` or `/workshop/your-id` based on the ID you provided. No extra components needed!
 
 ---
 
-### ✅ Add a New Workshop
+## 🎨 Design System
 
-**Step 1:** Add to `appData.js`
-```javascript
-export const workshopsData = [
-    // ... existing workshops
-    {
-        id: "my-workshop",
-        title: "My Workshop",
-        category: "Category",
-        status: "UPCOMING",
-        description: "Workshop description"
-    }
-];
-```
-
-**Done!** The workshop is now accessible at `/workshop/my-workshop`
-
-*Note: No need to create a new component - `WorkshopDetail.jsx` handles all workshops*
+The application uses **Tailwind CSS** for styling, with a custom design language:
+- **Primary Color:** Yellow (`#ffcc33`)
+- **Background:** Deep Slate (`#020617`)
+- **Effects:** Glassmorphism (`backdrop-blur`), technical grids, and large glowing blurs.
 
 ---
 
-## 🔄 How the Routing Works
+## � Development Workflow
 
-### URL Flow:
-```
-User visits URL
-    ↓
-BrowserRouter detects URL
-    ↓
-PageManager updates browser title
-    ↓
-Router finds matching route
-    ↓
-Renders the component
-    ↓
-Layout wraps it with Navbar/Footer
-    ↓
-Page displays to user
+### 1. Local Development
+```bash
+npm run dev
 ```
 
-### Example:
+### 2. Prerendering (Crucial for SEO & Previews)
+Before deploying, you must generate static HTML files so social media previews and browser refreshes work:
+```bash
+npm run build
+npm run prerender
 ```
-User visits: /course/llm
-    ↓
-Router matches: /course/:courseId
-    ↓
-Extracts: courseId = "llm"
-    ↓
-PageManager finds course data
-    ↓
-Sets title: "SETU | Large Language Modeling (LLM)"
-    ↓
-Renders: <CourseDetail /> component
-    ↓
-CourseDetail uses courseId to show correct content
-```
+*Note: This single command handles SEO, sitemaps, and social media image resolution.*
 
 ---
 
-## 🎨 How the Layout Works
-
-### Layout Component Structure:
-```javascript
-<Layout>
-    {/* Background effects */}
-    <div className="background-effects">...</div>
-    
-    {/* Navigation */}
-    <Navbar />
-    
-    {/* Page content (changes per URL) */}
-    <main>
-        {children} ← Your page component goes here
-    </main>
-    
-    {/* Footer */}
-    <Footer />
-</Layout>
-```
-
-### What Layout Provides:
-- ✅ Consistent Navbar on all pages
-- ✅ Consistent Footer on all pages
-- ✅ Background effects (gradients, grid)
-- ✅ Proper spacing and structure
+## � Guidelines for Developers
+- **Don't duplicate logic:** Routing is centralized in `App.jsx`.
+- **Keep data separate:** Never hardcode course descriptions in a `.jsx` page; put them in `appData.js`.
+- **Responsive design:** Always use Tailwind's `md:`, `lg:` prefixes to ensure the site works on mobile.
 
 ---
 
-## 📊 Data Flow
-
-### How Data Moves Through the App:
-
-```
-appData.js
-    ↓
-routing.jsx (imports data)
-    ↓
-PageManager (uses data for titles)
-    ↓
-Page Components (use data for content)
-```
-
-### Example:
-```javascript
-// 1. Data defined in appData.js
-export const selfPacedCourses = [
-    { id: "llm", title: "LLM Course", ... }
-];
-
-// 2. Imported in routing.jsx
-import { selfPacedCourses } from './data/appData';
-
-// 3. Used in PageManager
-const course = selfPacedCourses.find(c => c.id === courseId);
-document.title = `SETU | ${course.title}`;
-
-// 4. Used in CourseDetail.jsx
-import { getCourseById } from '../data/appData';
-const course = getCourseById(courseId);
-// Display course.title, course.description, etc.
-```
-
----
-
-## 🔧 Common Tasks
-
-### Change a Course Title
-**File:** `src/data/appData.js`
-```javascript
-{
-    id: "llm",
-    title: "New Title Here", // ← Change this
-    description: "..."
-}
-```
-
-### Add a Page to Navigation
-**File:** `src/data/appData.js`
-```javascript
-{
-    id: "my-page",
-    path: "/my-page",
-    showInNav: true, // ← Set to true
-    label: "My Page", // ← This appears in menu
-    ...
-}
-```
-
-### Change Browser Tab Title
-**File:** `src/data/appData.js`
-```javascript
-{
-    id: "home",
-    title: "New Tab Title", // ← Change this
-    ...
-}
-```
-
-### Update Social Media Preview
-**Files:**
-1. Replace image in `public/previews/`
-2. Update path in `appData.js`:
-```javascript
-{
-    id: "home",
-    previewImage: "/previews/my-new-image.png", // ← Change this
-    ...
-}
-```
-
----
-
-## 🚨 Important Notes
-
-### ⚠️ Don't Edit These Files (unless you know what you're doing):
-- `src/main.jsx` - React initialization
-- `src/index.css` - Global styles
-- `prerender/generatePreviewHtml.js` - SEO generation
-
-### ✅ Safe to Edit:
-- `src/data/appData.js` - Add/edit data
-- `src/pages/*.jsx` - Edit page content
-- `src/components/Layout.jsx` - Change layout
-- `src/config/routing.jsx` - Add new pages
-
-### 🔄 After Making Changes:
-1. Save your files
-2. The dev server will auto-reload
-3. Check your browser
-
-### 🚀 Before Deploying:
-1. Run `npm run build`
-2. Run `node prerender/generatePreviewHtml.js`
-3. Test the build locally
-4. Deploy to GitHub Pages
-
----
-
-## 📝 File Naming Conventions
-
-### Components:
-- **PascalCase**: `MyComponent.jsx`
-- **Location**: `src/components/` or `src/pages/`
-
-### Data Files:
-- **camelCase**: `appData.js`
-- **Location**: `src/data/`
-
-### Config Files:
-- **camelCase**: `routing.jsx`
-- **Location**: `src/config/`
-
----
-
-## 🎓 For Beginners
-
-### What is a Component?
-A component is a reusable piece of UI. Think of it like a LEGO block.
-
-```javascript
-function MyComponent() {
-    return <div>Hello!</div>;
-}
-```
-
-### What is a Route?
-A route connects a URL to a component.
-
-```
-URL: /about  →  Component: <About />
-```
-
-### What is State?
-State is data that can change. Not used much in this app since it's mostly static.
-
-### What is a Hook?
-Hooks are special functions that let you use React features. Examples:
-- `useState` - Store changing data
-- `useEffect` - Run code when something changes
-- `useLocation` - Get current URL
-
----
-
-## 🆘 Troubleshooting
-
-### Page Not Showing?
-1. Check if route is in `appData.js`
-2. Check if component is imported in `routing.jsx`
-3. Check if component is in `componentMap`
-
-### Title Not Updating?
-1. Check `title` field in `appData.js`
-2. Check PageManager in `routing.jsx`
-
-### Navigation Link Missing?
-1. Check `showInNav: true` in `appData.js`
-2. Check Navbar component
-
-### Build Failing?
-1. Check for syntax errors
-2. Run `npm install`
-3. Check console for error messages
-
----
-
-## 📚 Learn More
-
-### React Basics:
-- [React Official Docs](https://react.dev/)
-- [React Router](https://reactrouter.com/)
-
-### JavaScript:
-- [MDN JavaScript Guide](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide)
-
-### Project-Specific:
-- Read comments in `appData.js`
-- Read comments in `routing.jsx`
-- Check usage examples in files
-
----
-
-**Last Updated:** 2026-01-28
-**Version:** 2.0 (Simplified Structure)
+**Last Updated:** 2026-02-09
+**Version:** 3.0 (One-File Architecture)

@@ -117,49 +117,49 @@ export const selfPacedCourses = [
         id: "llm",
         title: "Large Language Modeling (LLM)",
         description: "Master LLMs with hands-on projects and advanced techniques.",
-        image: "/previews/course-llm.png"
+        image: "/previews/courses.png"
     },
     {
         id: "genbi",
         title: "Generative Business Intelligence (GenBI)",
         description: "Learn to build AI-powered business intelligence solutions.",
-        image: "/previews/course-genbi.png"
+        image: "/previews/courses.png"
     },
     {
         id: "mlops",
         title: "MLOps & LLMOps",
         description: "Master the operations and deployment of ML and LLM systems.",
-        image: "/previews/course-mlops.png"
+        image: "/previews/courses.png"
     },
     {
         id: "data-aws",
         title: "Data Engineering with AWS",
         description: "Build scalable data pipelines using AWS services.",
-        image: "/previews/course-data-aws.png"
+        image: "/previews/courses.png"
     },
     {
         id: "data-azure",
         title: "Data Engineering with Azure",
         description: "Master data engineering on Microsoft Azure cloud platform.",
-        image: "/previews/course-data-azure.png"
+        image: "/previews/courses.png"
     },
     {
         id: "snowflake",
         title: "Data Engineering with Snowflake",
         description: "Learn modern data warehousing with Snowflake.",
-        image: "/previews/course-snowflake.png"
+        image: "/previews/courses.png"
     },
     {
         id: "powerbi",
         title: "PowerBI & Power Automate",
         description: "Create powerful business intelligence dashboards and automations.",
-        image: "/previews/course-powerbi.png"
+        image: "/previews/courses.png"
     },
     {
         id: "nosql",
         title: "Managing Semi-structured Data with NoSQL",
         description: "Work with modern NoSQL databases for flexible data storage.",
-        image: "/previews/course-nosql.png"
+        image: "/previews/courses.png"
     }
 ];
 
@@ -186,7 +186,7 @@ export const workshopsData = [
         category: "GenAI",
         status: "CLASS FULL",
         description: "Join our intensive GenAI Vibe Coding workshop. Learn to build AI apps without writing boilerplate code.",
-        image: "/previews/workshop-genai-app.png"
+        image: "/previews/workshop.png"
     },
     {
         id: "python-basics",
@@ -194,7 +194,7 @@ export const workshopsData = [
         category: "Basics",
         status: "LIVE",
         description: "Learn Python programming from scratch with hands-on exercises.",
-        image: "/previews/workshop-python-basics.png"
+        image: "/previews/workshop.png"
     },
     {
         id: "ai-agile",
@@ -202,7 +202,7 @@ export const workshopsData = [
         category: "Management",
         status: "UPCOMING",
         description: "Integrate AI into your Agile workflow for better project management.",
-        image: "/previews/workshop-ai-agile.png"
+        image: "/previews/workshop.png"
     },
     {
         id: "agentic-no-code",
@@ -210,7 +210,7 @@ export const workshopsData = [
         category: "No-Code",
         status: "CLASS FULL",
         description: "Build autonomous AI agents without writing code.",
-        image: "/previews/workshop-agentic-no-code.png"
+        image: "/previews/workshop.png"
     },
     {
         id: "agentic-adv",
@@ -218,7 +218,7 @@ export const workshopsData = [
         category: "Advanced",
         status: "UPCOMING",
         description: "Advanced workshop on building autonomous AI systems.",
-        image: "/previews/workshop-agentic-adv.png"
+        image: "/previews/workshop.png"
     },
     {
         id: "hr-genai",
@@ -226,7 +226,7 @@ export const workshopsData = [
         category: "Business",
         status: "UPCOMING",
         description: "Transform HR processes with Generative AI tools and techniques.",
-        image: "/previews/workshop-hr-genai.png"
+        image: "/previews/workshop.png"
     }
 ];
 

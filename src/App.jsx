@@ -14,6 +14,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
 import PageTitleManager from "./utils/route_title";
+import { HelmetProvider } from "react-helmet-async";
 
 // ============================================================================
 // 📄 IMPORT ALL PAGE COMPONENTS
@@ -62,7 +63,7 @@ export const routeConfig = routesData.map(route => ({
 
 function App() {
   return (
-    <BrowserRouter basename="/new_setu">
+    <HelmetProvider><BrowserRouter basename="/new_setu">
       {/* Page Title Manager - Updates browser tab titles */}
       <PageTitleManager />
 
@@ -141,7 +142,7 @@ function App() {
         <Footer />
 
       </div>
-    </BrowserRouter>
+    </BrowserRouter></HelmetProvider>
   );
 }
 

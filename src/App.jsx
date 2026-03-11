@@ -1,36 +1,16 @@
-// ============================================================================
-// 🎯 SETU APPLICATION - Main App Component
-// ============================================================================
-// This is the main App component that contains:
-// - All routing logic
-// - Layout structure (Navbar + Footer)
-// - Page title management
-//
-// 💡 For beginners: This is the complete application in one file!
-// Everything is organized here for simplicity.
-// ============================================================================
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import PageTitleManager from "./utils/route_title";
+import PageTitleManager from "./route_title";
 import { HelmetProvider } from "react-helmet-async";
-
-// ============================================================================
-// 📄 IMPORT ALL PAGE COMPONENTS
-// ============================================================================
 import Home from "./pages/Home";
 import About from "./pages/About";
-import Courses from "./pages/Courses";
 import Roadmap from "./pages/Roadmap";
 import ForEnterprise from "./pages/ForEnterprise";
 import CourseDetail from "./pages/CourseDetail";
-import WorkshopDetail from "./pages/WorkshopDetail";
-
-// ============================================================================
-// 📊 IMPORT DATA
-// ============================================================================
 import { routesData } from "./data/appData";
+
 
 // ============================================================================
 // 🗺️ ROUTE-TO-COMPONENT MAPPING
@@ -40,12 +20,11 @@ import { routesData } from "./data/appData";
 const componentMap = {
   "home": <Home />,
   "about": <About />,
-  "courses": <Courses />,
   "roadmap": <Roadmap />,
   "enterprise": <ForEnterprise />,
-  "course-detail": <CourseDetail />,
-  "workshop-detail": <WorkshopDetail />
+  "course-detail": <CourseDetail />
 };
+
 
 // ============================================================================
 // 🔧 GENERATE ROUTE CONFIGURATION

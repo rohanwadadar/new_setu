@@ -1,0 +1,39 @@
+# Antigravity Exclusion List
+# Prevent the model from indexing/learning from these files
+
+# Dependencies and build outputs
+node_modules/
+dist/
+dist-ssr/
+build/
+.next/
+out/
+
+# Environment and secrets
+.env
+.env.*
+*.local
+secrets/
+keys/
+certs/
+
+# Version control
+.git/
+.svn/
+.hg/
+
+# OS/IDE specific
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Project specific sensitive data
+logs/
+*.log
+temp/
+tmp/
+private/
+backup/

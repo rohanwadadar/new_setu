@@ -13,7 +13,16 @@ export default function Navbar() {
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchQuery.trim()) {
-      navigate(`/courses?search=${searchQuery}`);
+      // Since all courses are on the Home page, we'll just scroll to the courses section
+      if (location.pathname !== "/") {
+        navigate("/");
+      }
+      setTimeout(() => {
+        const element = document.getElementById("courses");
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
       setIsMenuOpen(false);
     }
   };
@@ -33,8 +42,6 @@ export default function Navbar() {
             src="https://setuschool.com/static/media/setu-logo-web-footer.1955db586cc455c25e448cc8a4b75584.svg"
             alt="SETU Logo"
             className="h-8 sm:h-10 w-auto object-contain"
-          // Note: If the logo appears invisible because it's dark, 
-          // you can add "brightness-0 invert" to the className
           />
         </Link>
 
@@ -43,13 +50,13 @@ export default function Navbar() {
           onSubmit={handleSearch}
           className="hidden md:flex flex-1 max-w-sm lg:max-w-md relative group"
         >
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-yellow-500 transition-colors" size={18} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500 group-focus-within:text-blue-500 transition-colors" size={18} />
           <input
             type="text"
-            placeholder="Search courses..."
+            placeholder="Search programs..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-yellow-500/50 transition-all"
+            className="w-full bg-white/5 border border-white/10 rounded-xl py-2 pl-10 pr-4 text-sm text-white placeholder:text-slate-500 focus:outline-none focus:ring-1 focus:ring-blue-500/50 transition-all"
           />
         </form>
 
@@ -62,7 +69,7 @@ export default function Navbar() {
               <Link
                 key={link.to}
                 to={link.to}
-                className={`text-[11px] font-black uppercase tracking-widest transition-all ${location.pathname === link.to ? "text-yellow-500" : "text-slate-400 hover:text-white"
+                className={`text-[11px] font-black uppercase tracking-widest transition-all ${location.pathname === link.to ? "text-blue-500" : "text-slate-400 hover:text-white"
                   }`}
               >
                 {link.label}
@@ -89,7 +96,7 @@ export default function Navbar() {
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-slate-500" size={18} />
             <input
               type="text"
-              placeholder="Search courses..."
+              placeholder="Search programs..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               className="w-full bg-white/5 border border-white/10 rounded-xl py-3 pl-10 pr-4 text-white focus:outline-none"

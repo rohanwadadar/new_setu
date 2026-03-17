@@ -6,8 +6,8 @@
   "homepage": "https://rohanwadadar.github.io/new_setu",
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node prerender/index.js",
-    "deploy": "vite build && node prerender/index.js && gh-pages -d dist"
+    "build": "vite build && node prerender/indexnew.js",
+    "deploy": "vite build && node prerender/indexnew.js && gh-pages -d dist"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.1.18",

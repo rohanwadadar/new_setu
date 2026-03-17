@@ -8,7 +8,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 // ============================================================================
-// 🚀 DYNAMIC API-DRIVEN PRERENDER ENGINE (ORIGINAL V1)
+// 🚀 DYNAMIC API-DRIVEN PRERENDER ENGINE (PRODUCTION VERSION)
 // ============================================================================
 // NO HARDCODED DATA: Everything is fetched from the SETU API.
 // ============================================================================
@@ -17,7 +17,7 @@ dotenv.config();
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const BASE_URL = process.env.VITE_BASE_URL || 'https://rohanwadadar.github.io/new_setu';
+const BASE_URL = process.env.VITE_BASE_URL || 'https://setuqverse.com';
 const DIST_DIR = path.resolve(__dirname, '../dist');
 const TEMPLATE = path.join(DIST_DIR, 'index.html');
 
@@ -124,12 +124,19 @@ async function generatePages(pages) {
     const template = fs.readFileSync(TEMPLATE, 'utf-8');
 
     for (const p of pages) {
-        const pageUrl = `${BASE_URL}${p.path === '/' ? '' : p.path}`;
+        // Clean URL joining
+        const cleanBaseUrl = BASE_URL.endsWith('/') ? BASE_URL.slice(0, -1) : BASE_URL;
+        const pageUrl = `${cleanBaseUrl}${p.path === '/' ? '' : p.path}`;
+
         const metaTags = buildMetaTags(p.title, p.desc, pageUrl, p.image);
 
+        // PRODUCTION FIX: Cleans the template before injecting new tags
         let html = template
-            .replace(/<title>.*?<\/title>/, '')
-            .replace(/<meta name="description".*?>/gi, '')
+            .replace(/<title>.*?<\/title>/gi, '')         // Remove old title
+            .replace(/<meta name="description".*?>/gi, '') // Remove old description
+            .replace(/<link rel="canonical".*?>/gi, '')    // Remove old canonical
+            .replace(/<meta property="og:.*?".*?>/gi, '')     // Remove ALL old Open Graph tags
+            .replace(/<meta name="twitter:.*?".*?>/gi, '')  // Remove ALL old Twitter tags
             .replace('</head>', `${metaTags}\n</head>`);
 
         const cleanPath = p.path === '/' ? '' : p.path.replace(/^\//, '');
